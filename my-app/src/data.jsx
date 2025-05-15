@@ -1,4 +1,3 @@
-
 // 1) Initial list of companies
 export const initialCompanies = [
   { id:  1, name: 'TechCorp',              contact: 'tech@innovators.com',      industry: 'Technology',    description: 'A cutting-edge R&D firm focused on AI and IoT solutions.',            status: 'Pending' },
@@ -117,7 +116,10 @@ export const initialStudents = [
   { id: 2, name: 'Bob Smith',      email: 'bob@guc.com',    major: 'Software Engineering',   internshipStatus: 'Accepted'  },
   { id: 3, name: 'Carol Martinez', email: 'carol@guc.com',  major: 'Information Systems',    internshipStatus: 'Rejected'  },
   { id: 4, name: 'David Lee',      email: 'david@guc.com',  major: 'Industrial Engineering', internshipStatus: 'Completed' },
-]
+  { id: 5, name: 'Fatima Hassan',  email: 'fatima@guc.com', major: 'Computer Science',       internshipStatus: 'Accepted'  },
+  { id: 6, name: 'Omar Khaled',    email: 'omar@guc.com',   major: 'Mechanical Engineering', internshipStatus: 'Pending'   },
+  { id: 7, name: 'Sara Kim',       email: 'sara@guc.com',   major: 'Business Informatics',   internshipStatus: 'Completed' },
+];
 
 // 6) Internship & evaluation reports
 // src/data.js
@@ -125,11 +127,11 @@ export const initialStudents = [
 export const initialReports = [
   {
     id: 1,
-    student: "Alice",
+    student: "Alice Johnson",
     company: "TechCorp",
-    major: "CS",
+    major: "Computer Science",
     status: "Pending",
-    title: "Alice’s TechCorp Internship Report",
+    title: "Alice's TechCorp Internship Report",
     pdfUrl: "/pdfs/alice-techcorp.pdf",
     fileUrl: "/reports/alice-techcorp-report.pdf",
     details: {
@@ -142,11 +144,11 @@ export const initialReports = [
   },
   {
     id: 2,
-    student: "Bob",
+    student: "Bob Smith",
     company: "HealthPlus",
-    major: "Bioinformatics",
+    major: "Software Engineering",
     status: "Flagged",
-    title: "Bob’s HealthPlus Evaluation",
+    title: "Bob's HealthPlus Evaluation",
     pdfUrl: "/pdfs/bob-healthplus.pdf",
     fileUrl: "/reports/bob-healthplus-eval.pdf",
     details: {
@@ -159,24 +161,58 @@ export const initialReports = [
   },
   {
     id: 3,
-    student: "Carol Diaz",
-    company: "Green Earth Solutions",
-    major: "Environmental Engineering",
-    status: "Accepted",
-    title: "Carol’s Green Earth Internship",
-    pdfUrl: "/pdfs/carol-greeneath.pdf",
-    fileUrl: "/reports/carol-greeneath-internship.pdf",
+    student: "Carol Martinez",
+    company: "EduTech Hub",
+    major: "Information Systems",
+    status: "Rejected",
+    title: "Carol's EduTech Hub Report",
+    pdfUrl: "/pdfs/carol-edutech.pdf",
+    fileUrl: "/reports/carol-edutech-report.pdf",
     details: {
-      supervisor: "Ahmed Ali",
-      start: "2023-05-01",
-      end:   "2023-07-30",
-      description: "Designed pollution sensors..."
+      supervisor: "Dr. Ahmed Said",
+      start: "2024-08-01",
+      end:   "2024-09-30",
+      description: "Developed e-learning modules."
+    },
+    clarification: "Needs more detail."
+  },
+  {
+    id: 4,
+    student: "Fatima Hassan",
+    company: "CodeWorks",
+    major: "Computer Science",
+    status: "Accepted",
+    title: "Fatima's CodeWorks Internship Report",
+    pdfUrl: "/pdfs/fatima-codeworks.pdf",
+    fileUrl: "/reports/fatima-codeworks-report.pdf",
+    details: {
+      supervisor: "Lina Mostafa",
+      start: "2024-06-01",
+      end:   "2024-08-31",
+      description: "Built REST APIs and React apps."
+    },
+    clarification: ""
+  },
+  {
+    id: 5,
+    student: "Sara Kim",
+    company: "Blue Ocean Recycling",
+    major: "Business Informatics",
+    status: "Completed",
+    title: "Sara's Blue Ocean Recycling Report",
+    pdfUrl: "/pdfs/sara-blueocean.pdf",
+    fileUrl: "/reports/sara-blueocean-report.pdf",
+    details: {
+      supervisor: "Mohamed El-Sayed",
+      start: "2023-07-01",
+      end:   "2023-09-30",
+      description: "Coordinated recycling programs."
     },
     clarification: ""
   }
 ];
 
-// Documents you can “download”
+// Documents you can "download"
 export const initialDocuments = [
   {
     id:    1,
