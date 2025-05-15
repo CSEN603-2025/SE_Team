@@ -4,7 +4,7 @@ import './LoginPage.css'
 
 function LoginPage() {
   const [credentials, setCredentials] = useState({
-    studentId: '',
+    email: '',
     password: ''
   })
   const [error, setError] = useState('')
@@ -21,7 +21,7 @@ function LoginPage() {
   const handleSubmit = (e) => {
     e.preventDefault()
     // For demo purposes, using a simple validation
-    if (credentials.studentId && credentials.password) {
+    if (credentials.email && credentials.password) {
       // In a real app, you would validate with a backend server
       navigate('/submissions')
     } else {
@@ -35,14 +35,14 @@ function LoginPage() {
         <h1>Student Login</h1>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="studentId">Student ID</label>
+            <label htmlFor="email">Student Email</label>
             <input
-              type="text"
-              id="studentId"
-              name="studentId"
-              value={credentials.studentId}
+              type="email"
+              id="email"
+              name="email"
+              value={credentials.email}
               onChange={handleChange}
-              placeholder="Enter your student ID"
+              placeholder="Enter your student email"
             />
           </div>
           <div className="form-group">
