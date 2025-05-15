@@ -1,6 +1,0 @@
-[
-  { "id": 1, "code": "CS101", "name": "Introduction to Computer Science" },
-  { "id": 2, "code": "CS201", "name": "Data Structures and Algorithms" },
-  { "id": 3, "code": "CS301", "name": "Operating Systems" },
-  { "id": 4, "code": "CS401", "name": "Database Systems" }
-]

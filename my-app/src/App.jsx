@@ -15,12 +15,10 @@ import VideoCallRoom            from './components/VideoCallRoom';
 import PresenceIndicator        from './components/PresenceIndicator';
 import WorkshopManager          from './components/WorkshopManager';
 import ScadDashboard            from './components/ScadDashboard';
-import {
-  initialCompanies,
-  initialReports,
-  USERS
-} from './data';
+import { initialCompanies, initialReports, USERS } from './data';
 import './App.css';
+
+
 
 export default function App() {
   // Core data
@@ -34,26 +32,8 @@ export default function App() {
   const handleLogin = (email, password) => {
     const u = USERS.find(u => u.email === email && u.password === password);
     if (!u) return false;
-    // Redirect student@guc.com to frontend app
-    if (email === 'student@guc.com') {
-      window.location.href = 'http://localhost:5173';
-      return false;
-    }
     setCurrentUser(u);
-    // default landing
-    switch (u.role) {
-      case 'SCAD Office':
-        setActiveTab('Companies Applying');
-        break;
-      case 'Faculty Member':
-        setActiveTab('Internship Reports');
-        break;
-      case 'PRO Student':
-        setActiveTab('Available Internships');
-        break;
-      default:
-        setActiveTab('Dashboard');
-    }
+    setActiveTab('Dashboard'); // Always open Dashboard after login
     return true;
   };
 
