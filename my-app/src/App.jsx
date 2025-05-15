@@ -14,6 +14,7 @@ import AppointmentSystem         from './components/AppointmentSystem';
 import VideoCallRoom            from './components/VideoCallRoom';
 import PresenceIndicator        from './components/PresenceIndicator';
 import WorkshopManager          from './components/WorkshopManager';
+import ScadDashboard            from './components/ScadDashboard';
 import {
   initialCompanies,
   initialReports,
@@ -33,8 +34,12 @@ export default function App() {
   const handleLogin = (email, password) => {
     const u = USERS.find(u => u.email === email && u.password === password);
     if (!u) return false;
+    // Redirect student@guc.com to frontend app
+    if (email === 'student@guc.com') {
+      window.location.href = 'http://localhost:5173';
+      return false;
+    }
     setCurrentUser(u);
-
     // default landing
     switch (u.role) {
       case 'SCAD Office':
@@ -68,6 +73,11 @@ export default function App() {
   // If not logged in yet...
   if (!currentUser) {
     return <Login onLogin={handleLogin} />;
+  }
+
+  // Show SCAD dashboard for SCAD Office users when on Dashboard
+  if (currentUser.role === 'SCAD Office' && activeTab === 'Dashboard') {
+    return <ScadDashboard onNavigate={setActiveTab} user={currentUser} />;
   }
 
   const tabs = [

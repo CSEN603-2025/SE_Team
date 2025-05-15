@@ -1,0 +1,62 @@
+.scad-dashboard-container {
+  max-width: 1100px;
+  margin: 60px auto;
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 4px 32px rgba(0,0,0,0.10);
+  padding: 3.5rem 2.5rem 3.5rem 2.5rem;
+  text-align: center;
+}
+.scad-dashboard-container h1 {
+  font-size: 2.4rem;
+  color: #222;
+  margin-bottom: 2.5rem;
+}
+.scad-dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2.5rem;
+}
+.scad-dashboard-btn {
+  background: #1abc9c;
+  color: #fff;
+  font-size: 1.45rem;
+  font-weight: 700;
+  border: none;
+  border-radius: 16px;
+  padding: 2.2rem 0.5rem;
+  min-height: 110px;
+  min-width: 0;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1.1em;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+}
+.scad-dashboard-btn:hover, .scad-dashboard-btn:focus {
+  background: #16a085;
+  transform: translateY(-3px) scale(1.04);
+}
+.scad-dashboard-icon {
+  font-size: 2.2em;
+}
+@media (max-width: 900px) {
+  .scad-dashboard-container {
+    padding: 1.5rem 0.5rem;
+  }
+  .scad-dashboard-grid {
+    grid-template-columns: 1fr;
+    gap: 1.2rem;
+  }
+  .scad-dashboard-btn {
+    font-size: 1.1rem;
+    padding: 1.2rem 0.3rem;
+    min-height: 80px;
+  }
+  .scad-dashboard-icon {
+    font-size: 1.5em;
+  }
+} 
