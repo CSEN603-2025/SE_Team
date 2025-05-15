@@ -65,4 +65,52 @@ button:focus-visible {
   button {
     background-color: #f9f9f9;
   }
+  :root {
+  /* Backgrounds */
+  --bg-main:    #fbf8f6; /* very light cream */
+  --bg-panel:   #f1f4f8; /* pale blue-gray */
+
+  /* Primary accents */
+  --primary:    #a8d8ea; /* pastel teal */
+  --secondary:  #ffb6b9; /* pastel coral */
+  --accent:     #fae3d9; /* pastel peach */
+
+  /* Text */
+  --text-dark:  #2e434d; /* charcoal */
+  --text-light: #5c6773; /* slate */
+}
+/* src/index.css (or variables.css) */
+.dashboard {
+  background: var(--bg-main);
+  color: var(--text-dark);
+  font-family: sans-serif;
+}
+.dashboard-header {
+  background: var(--primary);
+  padding: 1rem;
+  border-radius: 8px;
+  color: white;
+}
+.card {
+  background: var(--bg-panel);
+  border: 1px solid var(--secondary);
+  border-radius: 8px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+.card h2 {
+  color: var(--text-dark);
+}
+.button-accent {
+  background: var(--accent);
+  border: none;
+  padding: 0.5rem 1rem;
+  border-radius: 4px;
+  color: var(--text-dark);
+  cursor: pointer;
+}
+.button-accent:hover {
+  opacity: 0.9;
+}
+
 }
