@@ -2,6 +2,45 @@
 @tailwind components;
 @tailwind utilities;
 
+@layer utilities {
+  .animate-fadeout {
+    animation: fadeOut 3s forwards;
+  }
+  
+  @keyframes fadeOut {
+    0% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; transform: translateY(0); } /* Stay visible for a while */
+    100% { opacity: 0; transform: translateY(-20px); }
+  }
+  
+  /* If you still want a fade-in effect for the toasts first */
+  .animate-fade-in-then-out {
+    animation: fadeInAndOut 5s forwards;
+  }
+  
+  @keyframes fadeInAndOut {
+    0% { opacity: 0; transform: translateY(-20px); }
+    10% { opacity: 1; transform: translateY(0); }
+    80% { opacity: 1; transform: translateY(0); }
+    100% { opacity: 0; transform: translateY(-20px); }
+  }
+  
+  /* Style for the scrollbar in the notification dropdown (optional, webkit-specific) */
+  .overflow-y-auto::-webkit-scrollbar {
+    width: 6px;
+  }
+  .overflow-y-auto::-webkit-scrollbar-track {
+    background: transparent;
+  }
+  .overflow-y-auto::-webkit-scrollbar-thumb {
+    background-color: rgba(156, 163, 175, 0.5); /* gray-400 with opacity */
+    border-radius: 3px;
+  }
+  .overflow-y-auto::-webkit-scrollbar-thumb:hover {
+    background-color: rgba(107, 114, 128, 0.7); /* gray-500 with opacity */
+  }
+}
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -9,15 +48,17 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  @apply bg-slate-900 text-gray-100;
 }
 
 /* Add these if you're not using Tailwind */
-.bg-slate-800 { background-color: #1e304a; }
+.bg-slate-800 { background-color: #0b1c36; }
 .bg-slate-700 { background-color: #151a20; }
 .bg-slate-600 { background-color: #000000; }
 .bg-slate-900 { background-color: #0f172a; }
 .text-gray-300 { color: #689aea; }
 .text-white { color: #ffffff; }
-.text-color { color: #3e7cd4; }
-.border-slate-700 { border-color: #cbcbe3; }
+.text-color { color: #ffffff; }
+.border-slate-700 { border-color: #1b1b3c;}
+.text-blue { color: #1f2647; }
 /* Add other color classes as needed */
