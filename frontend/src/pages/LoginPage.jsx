@@ -6,18 +6,16 @@ import './LoginPage.css';
 export default function LoginPage() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const navigate = useNavigate();
+  const navigate = useNavigate(); // ✅ useNavigate at top level
 
   const handleLogin = (e) => {
     e.preventDefault();
 
-    // Simple demo check
+    // ✅ Simple hardcoded login logic
     if (email === 'student@guc.edu.eg' && password === 'guc123') {
-  localStorage.setItem('isAuthenticated', 'true');
-  navigate('/dashboard');
-}
-
-     else {
+      localStorage.setItem('isAuthenticated', 'true'); // store session
+      navigate('/dashboard'); // ✅ Redirect
+    } else {
       alert('Invalid credentials');
     }
   };

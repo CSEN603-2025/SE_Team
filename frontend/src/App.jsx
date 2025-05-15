@@ -1,5 +1,4 @@
 import React from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import RegisterPage from './pages/RegisterPage';
@@ -9,6 +8,7 @@ import Footer from './components/Footer';
 import InternshipList from './components/InternshipList';
 import CoursesList from './components/CoursesList';
 import ProtectedRoute from './components/ProtectedRoute'; // ← NEW
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 
 function App() {
   return (
@@ -18,6 +18,9 @@ function App() {
         <Route path="/" element={<HomePage />} />
         <Route path="/login" element={<LoginPage />} />
         <Route path="/register" element={<RegisterPage />} />
+<Route path="/" element={<Navigate to="/login" />} />
+
+<Route path="/dashboard" element={<StudentDashboard />} />
 
         {/* ✅ Protected routes */}
         <Route
