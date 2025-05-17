@@ -1,0 +1,63 @@
+/* src/components/Login.css */
+.login-container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: #E6D9C8; /* your neutral background */
+  }
+  
+  .login-box {
+    background: #F6F6F2;
+    padding: 2rem;
+    border: 1px solid #B1A18A;
+    border-radius: 8px;
+    width: 320px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    font-family: 'Nunito', sans-serif;
+  }
+  
+  .login-box h2 {
+    margin-top: 0;
+    color: #3A3A3A;
+    text-align: center;
+  }
+  
+  .login-box label {
+    display: block;
+    margin: 0.8rem 0 0.3rem;
+    color: #3A3A3A;
+  }
+  
+  .login-box input {
+    width: 100%;
+    padding: 0.6rem;
+    border: 1px solid #B1A18A;
+    border-radius: 4px;
+  }
+  
+  .login-box button {
+    margin-top: 1rem;
+    width: 100%;
+    padding: 0.6rem;
+    background-color: #C5BEAC;
+    color: #3A3A3A;
+    border: none;
+    border-radius: 4px;
+    font-size: 1rem;
+    cursor: pointer;
+  }
+  
+  .login-box button:hover {
+    background-color: #D5BAA5;
+  }
+  
+  .error {
+    background: #FFC8C8;
+    color: #900;
+    padding: 0.5rem;
+    border-radius: 4px;
+    text-align: center;
+    margin-bottom: 1rem;
+  }
+  

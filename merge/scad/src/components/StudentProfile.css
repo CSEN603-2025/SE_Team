@@ -1,0 +1,135 @@
+.student-profile {
+  background: #fff;
+  border-radius: 8px;
+  padding: 1.5rem;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.student-profile h3 {
+  margin: 0 0 1rem;
+  color: #2c3e50;
+  font-size: 1.25rem;
+}
+
+.student-profile h4 {
+  margin: 1.5rem 0 1rem;
+  color: #495057;
+  font-size: 1.1rem;
+}
+
+.student-profile p {
+  margin: 0.5rem 0;
+  color: #495057;
+}
+
+.student-profile ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.student-profile li {
+  background: #f8f9fa;
+  border-radius: 6px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+}
+
+.report-info {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 0.5rem;
+}
+
+.report-info strong {
+  color: #2c3e50;
+}
+
+.report-details {
+  margin: 0.5rem 0;
+  font-size: 0.9rem;
+  color: #6c757d;
+}
+
+.report-details p {
+  margin: 0.25rem 0;
+}
+
+.download-link {
+  display: inline-block;
+  padding: 0.5rem 1rem;
+  background: #007bff;
+  color: white;
+  text-decoration: none;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  margin-top: 0.5rem;
+}
+
+.download-link:hover {
+  background: #0056b3;
+}
+
+.close-button {
+  margin-top: 1.5rem;
+  padding: 0.5rem 1rem;
+  background: #6c757d;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.close-button:hover {
+  background: #5a6268;
+}
+
+.status {
+  padding: 0.25rem 0.5rem;
+  border-radius: 12px;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+.status.pending {
+  background-color: #fff3cd;
+  color: #856404;
+}
+
+.status.accepted {
+  background-color: #d4edda;
+  color: #155724;
+}
+
+.status.rejected {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+.status.flagged {
+  background-color: #f8d7da;
+  color: #721c24;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  .profile-header {
+    flex-direction: column;
+    gap: 1rem;
+    align-items: flex-start;
+  }
+
+  .info-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .report-actions {
+    flex-direction: column;
+  }
+
+  .btn-download {
+    width: 100%;
+    text-align: center;
+  }
+}

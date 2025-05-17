@@ -1,0 +1,169 @@
+.company-list {
+  max-width: 700px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 2rem 2rem 1.5rem 2rem;
+}
+.company-list h2 {
+  margin-bottom: 1.2rem;
+  color: #2c3e50;
+  font-size: 1.4rem;
+}
+.company-list .filters {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1.5rem;
+}
+.company-list .filters input,
+.company-list .filters select {
+  padding: 0.6rem 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 1rem;
+}
+.company-list ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.company-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fa;
+  padding: 1.1rem 1.2rem;
+  margin-bottom: 1rem;
+  border-radius: 8px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  transition: box-shadow 0.2s;
+}
+.company-item:hover {
+  box-shadow: 0 4px 12px rgba(0,0,0,0.09);
+}
+.info-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+.company-main {
+  font-size: 1.1rem;
+  color: #222;
+}
+.company-name {
+  font-weight: 600;
+}
+.company-industry {
+  color: #888;
+  font-size: 0.98em;
+}
+.status-badge {
+  display: inline-block;
+  padding: 0.3em 0.9em;
+  border-radius: 12px;
+  font-size: 0.95em;
+  font-weight: 500;
+  margin-top: 0.2em;
+  color: #fff;
+}
+.status-pending {
+  background: #ffc107;
+  color: #856404;
+}
+.status-accepted {
+  background: #28a745;
+  color: #fff;
+}
+.status-rejected {
+  background: #dc3545;
+  color: #fff;
+}
+.actions-group {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  align-items: flex-end;
+}
+.actions-group button {
+  min-width: 110px;
+  padding: 0.6rem 1.1rem;
+  font-size: 1rem;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s;
+  margin-bottom: 0.1rem;
+}
+.view-btn {
+  background: #e9ecef;
+  color: #333;
+}
+.view-btn:hover {
+  background: #d6d8db;
+}
+.accept-btn {
+  background: #28a745;
+  color: #fff;
+  font-weight: 600;
+}
+.accept-btn:disabled {
+  background: #b7e0c2;
+  color: #fff;
+  cursor: not-allowed;
+}
+.accept-btn:hover:not(:disabled) {
+  background: #218838;
+}
+.reject-btn {
+  background: #dc3545;
+  color: #fff;
+  font-weight: 600;
+}
+.reject-btn:disabled {
+  background: #f5b7b1;
+  color: #fff;
+  cursor: not-allowed;
+}
+.reject-btn:hover:not(:disabled) {
+  background: #c82333;
+}
+.feedback {
+  background: #e3fcec;
+  color: #155724;
+  border: 1px solid #b7e0c2;
+  border-radius: 6px;
+  padding: 0.7em 1em;
+  margin-bottom: 1.2em;
+  font-size: 1.05em;
+  text-align: center;
+}
+.empty-state {
+  text-align: center;
+  color: #888;
+  padding: 2.5em 0 1.5em 0;
+  font-size: 1.1em;
+  background: none;
+  box-shadow: none;
+}
+.empty-icon {
+  font-size: 2.5em;
+  margin-bottom: 0.5em;
+}
+@media (max-width: 600px) {
+  .company-list {
+    padding: 1rem 0.5rem;
+  }
+  .company-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 1rem 0.7rem;
+  }
+  .actions-group {
+    flex-direction: row;
+    gap: 0.5rem;
+    width: 100%;
+    margin-top: 0.7em;
+    justify-content: flex-start;
+  }
+}

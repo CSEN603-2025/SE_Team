@@ -1,0 +1,161 @@
+.video-call-room-card {
+  max-width: 800px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 2rem 2rem 1.5rem 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.video-call-room-card h2 {
+  margin-bottom: 0.5rem;
+  color: #2c3e50;
+  font-size: 1.4rem;
+}
+.helper-text {
+  color: #6c757d;
+  font-size: 1.05em;
+  margin-bottom: 0.5rem;
+}
+.video-section {
+  display: flex;
+  gap: 2rem;
+  justify-content: center;
+  margin-bottom: 1.5rem;
+}
+.video-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+}
+.video-feed {
+  width: 260px;
+  height: 180px;
+  border-radius: 10px;
+  background: #222;
+  object-fit: cover;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.remote-video-placeholder {
+  width: 260px;
+  height: 180px;
+  border-radius: 10px;
+  background: #444;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  font-size: 2.5em;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+}
+.remote-label {
+  font-size: 1.1em;
+  margin-top: 0.5em;
+  color: #e9ecef;
+}
+.video-label {
+  font-size: 1em;
+  color: #495057;
+  margin-top: 0.3em;
+}
+.video-status {
+  display: flex;
+  gap: 0.5em;
+  margin-top: 0.3em;
+}
+.status-badge {
+  display: inline-block;
+  padding: 0.2em 0.8em;
+  border-radius: 12px;
+  font-size: 0.95em;
+  font-weight: 500;
+  background: #e9ecef;
+  color: #495057;
+}
+.status-badge.on {
+  background: #28a745;
+  color: #fff;
+}
+.status-badge.off {
+  background: #dc3545;
+  color: #fff;
+}
+.status-badge.sharing {
+  background: #007bff;
+  color: #fff;
+}
+.call-controls {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  margin-top: 1.2rem;
+  flex-wrap: wrap;
+}
+.control-btn {
+  background: #e9ecef;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  padding: 0.7rem 1.3rem;
+  font-size: 1.05rem;
+  cursor: pointer;
+  font-weight: 500;
+  transition: background 0.2s, color 0.2s;
+}
+.control-btn:disabled {
+  background: #b7e0c2;
+  color: #fff;
+  cursor: not-allowed;
+}
+.control-btn:hover:not(:disabled) {
+  background: #d6d8db;
+}
+.leave-btn {
+  background: #dc3545;
+  color: #fff;
+}
+.leave-btn:hover:not(:disabled) {
+  background: #c82333;
+}
+.simulate-btn {
+  background: #ffc107;
+  color: #856404;
+}
+.simulate-btn:hover:not(:disabled) {
+  background: #e0a800;
+}
+.notification {
+  background: #e3fcec;
+  color: #155724;
+  border: 1px solid #b7e0c2;
+  border-radius: 6px;
+  padding: 0.7em 1em;
+  margin-top: 1.2em;
+  font-size: 1.05em;
+  text-align: center;
+}
+@media (max-width: 900px) {
+  .video-section {
+    flex-direction: column;
+    align-items: center;
+    gap: 1.2rem;
+  }
+}
+@media (max-width: 600px) {
+  .video-call-room-card {
+    padding: 1rem 0.5rem;
+  }
+  .video-feed, .remote-video-placeholder {
+    width: 100vw;
+    max-width: 98vw;
+    height: 160px;
+  }
+  .call-controls {
+    flex-direction: column;
+    gap: 0.7rem;
+  }
+} 

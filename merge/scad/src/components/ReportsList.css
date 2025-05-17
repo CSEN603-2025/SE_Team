@@ -1,0 +1,123 @@
+.reports-list {
+  max-width: 900px;
+  margin: 0 auto;
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  padding: 2rem 2rem 1.5rem 2rem;
+}
+.reports-list h2 {
+  margin-bottom: 1.2rem;
+  color: #2c3e50;
+  font-size: 1.4rem;
+}
+.reports-table-container {
+  background: #f8f9fa;
+  border-radius: 10px;
+  box-shadow: 0 1px 3px rgba(0,0,0,0.04);
+  padding: 1.2rem 0.7rem;
+  margin-bottom: 1.5rem;
+}
+.reports-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  font-size: 1.05rem;
+}
+.reports-table th {
+  background: #e9ecef;
+  color: #333;
+  font-weight: 600;
+  padding: 0.8em 0.7em;
+  text-align: left;
+  border-bottom: 2px solid #ccc;
+}
+.reports-table td {
+  padding: 0.7em 0.7em;
+  border-bottom: 1px solid #eee;
+}
+.status-badge {
+  display: inline-block;
+  padding: 0.2em 0.8em;
+  border-radius: 12px;
+  font-size: 0.95em;
+  font-weight: 500;
+}
+.status-badge.status-pending {
+  background: #ffc107;
+  color: #856404;
+}
+.status-badge.status-accepted {
+  background: #28a745;
+  color: #fff;
+}
+.status-badge.status-rejected {
+  background: #dc3545;
+  color: #fff;
+}
+.status-badge.status-flagged {
+  background: #f8d7da;
+  color: #721c24;
+}
+.actions-group {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+.view-btn {
+  background: #e9ecef;
+  color: #333;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.view-btn:hover {
+  background: #d6d8db;
+}
+.download-btn {
+  background: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  padding: 0.5rem 1.1rem;
+  font-size: 1rem;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s;
+}
+.download-btn:hover {
+  background: #0056b3;
+}
+.feedback {
+  background: #e3fcec;
+  color: #155724;
+  border: 1px solid #b7e0c2;
+  border-radius: 6px;
+  padding: 0.7em 1em;
+  margin-bottom: 1.2em;
+  font-size: 1.05em;
+  text-align: center;
+}
+.empty-state {
+  text-align: center;
+  color: #888;
+  font-size: 1.1em;
+  background: none;
+  box-shadow: none;
+  padding: 2em 0 1em 0;
+}
+.empty-icon {
+  font-size: 2.2em;
+  margin-bottom: 0.5em;
+}
+@media (max-width: 700px) {
+  .reports-list {
+    padding: 1rem 0.5rem;
+  }
+  .reports-table-container {
+    padding: 0.5rem 0.2rem;
+  }
+} 

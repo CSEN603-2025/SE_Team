@@ -1,0 +1,16 @@
+.app-container {
+  display: flex;
+  height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 2rem;
+  background-color: #E6D9C8;
+  overflow-y: auto;
+}
+
+h1, h2 {
+  color: #3A3A3A;  /* Text color */
+  margin-top: 0;
+}

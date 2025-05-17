@@ -1,0 +1,13 @@
+.company-details {
+  background: #f9f3ea;
+  padding: 1rem;
+  border-radius: 8px;
+}
+.company-details .back-btn {
+  margin-bottom: 1rem;
+  background: transparent;
+  border: none;
+  color: #555;
+  cursor: pointer;
+  font-size: 0.9rem;
+}

@@ -1,0 +1,42 @@
+/* App.css (can be imported globally) */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #f0f8ff;
+}
+
+.centered {
+  text-align: center;
+  margin-top: 10%;
+}
+
+.login-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 300px;
+  margin: auto;
+}
+
+.dashboard {
+  padding: 2rem;
+  text-align: center;
+}
+
+.dashboard h1 {
+  color: #025e73;
+}
+
+.dashboard button {
+  background: #028090;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  margin: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.dashboard button:hover {
+  background: #015668;
+}
