@@ -1,27 +1,32 @@
-// src/App.js
+// FINAL/App.js
 import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import Login from './FINAL/Login';
-import StudentDashboard from './FINAL/StudentDashboard';
-import ProStudentDashboard from './FINAL/ProStudentDashboard';
-import CompanyDashboard from './FINAL/CompanyDashboard';
-import FacultyDashboard from './FINAL/FacultyDashboard';
-import ScadDashboard from './FINAL/ScadDashboard';
-import './App.css';
+import Login from './Login';
+import StudentDashboard from './StudentDashboard';
+import ProStudentDashboard from './ProStudentDashboard';
+import CompanyDashboard from './CompanyDashboard';
+import FacultyDashboard from './FacultyDashboard';
+import ScadDashboard from './ScadDashboard';
 
-function App() {
+import './App.css';
+import Sidebar from './components/Sidebar';
+
+export default function App() {
   return (
     <Router>
-      <Routes>
-        <Route path="/" element={<Login />} />
-        <Route path="/student" element={<StudentDashboard />} />
-        <Route path="/prostudent" element={<ProStudentDashboard />} />
-        <Route path="/company" element={<CompanyDashboard />} />
-        <Route path="/faculty" element={<FacultyDashboard />} />
-        <Route path="/scad" element={<ScadDashboard />} />
-      </Routes>
+      <div className="app-container">
+        <Sidebar />
+        <div className="main-content">
+          <Routes>
+            <Route path="/" element={<Login />} />
+            <Route path="/student" element={<StudentDashboard />} />
+            <Route path="/prostudent" element={<ProStudentDashboard />} />
+            <Route path="/company" element={<CompanyDashboard />} />
+            <Route path="/faculty" element={<FacultyDashboard />} />
+            <Route path="/scad" element={<ScadDashboard />} />
+          </Routes>
+        </div>
+      </div>
     </Router>
   );
 }
-
-export default App;
