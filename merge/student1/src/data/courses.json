@@ -1,5 +1,0 @@
-[
-  { "id": 1, "code": "CSEN101", "name": "Introduction to CS" },
-  { "id": 2, "code": "CSEN201", "name": "Data Structures" },
-  { "id": 3, "code": "CSEN301", "name": "Databases" }
-]
