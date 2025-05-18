@@ -1,11 +1,12 @@
 // FINAL/components/Navbar.jsx
-import React from 'react';
+import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import './Navbar.css';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const role = localStorage.getItem("role");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
   const handleLogout = () => {
     // Clear all relevant localStorage items
@@ -14,11 +15,24 @@ const Navbar = () => {
     navigate("/");
   };
 
+  const toggleSidebar = () => {
+    setIsSidebarOpen(!isSidebarOpen);
+    const sidebar = document.querySelector('.sidebar');
+    if (sidebar) {
+      sidebar.classList.toggle('open');
+    }
+  };
+
   return (
     <div className="navbar">
-      <div className="navbar-brand">
-        <i className="fas fa-briefcase"></i>
-        <span>SCAD Internship System</span>
+      <div className="navbar-left">
+        <button className="menu-toggle" onClick={toggleSidebar}>
+          <i className="fas fa-bars"></i>
+        </button>
+        <div className="navbar-brand">
+          <i className="fas fa-briefcase"></i>
+          <span>SCAD Internship System</span>
+        </div>
       </div>
       {role && (
         <div className="navbar-actions">

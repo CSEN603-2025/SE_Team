@@ -1,10 +1,12 @@
 // FINAL/pages/Internships.jsx
 import React, { useState, useEffect } from "react";
 import { COMPANIES, INDUSTRIES, DURATIONS } from "../data/constants";
+import { sampleInternships } from "../data/sampleData";
 import "./Internships.css";
 
-export default function Internships() {
+const Internships = () => {
   const [internships, setInternships] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [searchTerm, setSearchTerm] = useState("");
   const [filters, setFilters] = useState({
     industry: "",
@@ -17,15 +19,30 @@ export default function Internships() {
   const [showSuggested, setShowSuggested] = useState(false);
   const [applicationDocuments, setApplicationDocuments] = useState([]);
   const [userProfile, setUserProfile] = useState(null);
+  const [savedInternships, setSavedInternships] = useState([]);
+  const [showFilters, setShowFilters] = useState(false);
 
-  // Load user profile and internships on component mount
   useEffect(() => {
+    // Initialize internships data if not exists
+    const existingInternships = localStorage.getItem('internships');
+    if (!existingInternships) {
+      localStorage.setItem('internships', JSON.stringify(sampleInternships));
+    }
+
+    // Get internships from localStorage
+    const storedInternships = JSON.parse(localStorage.getItem('internships') || '[]');
+    console.log('Loaded internships:', storedInternships);
+    setInternships(storedInternships);
+    setLoading(false);
+
     const user = JSON.parse(localStorage.getItem('user') || '{}');
+    console.log('Loaded user:', user);
     setUserProfile(user);
 
-    // In a real app, this would be an API call
-    const savedInternships = JSON.parse(localStorage.getItem('internships') || '[]');
-    setInternships(savedInternships);
+    // Load saved internships
+    const storedSavedInternships = JSON.parse(localStorage.getItem('savedInternships') || '[]');
+    console.log('Loaded saved internships:', storedSavedInternships);
+    setSavedInternships(storedSavedInternships);
   }, []);
 
   // Get suggested companies based on user interests and skills
@@ -135,22 +152,40 @@ export default function Internships() {
     setApplicationDocuments(prev => prev.filter((_, i) => i !== index));
   };
 
-  const handleApply = () => {
-    if (!selectedInternship) return;
+  const handleApply = (e, internship) => {
+    e.stopPropagation(); // Prevent opening the modal when clicking apply
+    
+    // Check if user is logged in
+    const user = JSON.parse(localStorage.getItem('user') || '{}');
+    if (!user.id) {
+      alert('Please log in to apply for internships');
+      return;
+    }
+
+    // Check if already applied
+    const applications = JSON.parse(localStorage.getItem('applications') || '[]');
+    const hasApplied = applications.some(app => 
+      app.internshipId === internship.id && app.userId === user.id
+    );
+
+    if (hasApplied) {
+      alert('You have already applied for this internship');
+      return;
+    }
 
     // Create application object
     const application = {
       id: Date.now(),
-      internshipId: selectedInternship.id,
-      internshipTitle: selectedInternship.title,
-      company: selectedInternship.company,
+      userId: user.id,
+      internshipId: internship.id,
+      internshipTitle: internship.title,
+      company: internship.company,
       appliedDate: new Date().toISOString(),
       status: 'pending',
-      documents: applicationDocuments
+      documents: []
     };
 
     // Save application
-    const applications = JSON.parse(localStorage.getItem('applications') || '[]');
     applications.push(application);
     localStorage.setItem('applications', JSON.stringify(applications));
 
@@ -159,14 +194,13 @@ export default function Internships() {
     notifications.push({
       id: Date.now(),
       type: 'application_submitted',
-      message: `Application submitted for ${selectedInternship.title} at ${selectedInternship.company}`,
-      date: new Date().toISOString()
+      message: `Application submitted for ${internship.title} at ${internship.company}`,
+      date: new Date().toISOString(),
+      userId: user.id
     });
     localStorage.setItem('notifications', JSON.stringify(notifications));
 
-    // Reset state
-    setSelectedInternship(null);
-    setApplicationDocuments([]);
+    alert('Application submitted successfully!');
   };
 
   const resetFilters = () => {
@@ -180,134 +214,182 @@ export default function Internships() {
     });
   };
 
+  const handleSaveInternship = (e, internship) => {
+    e.stopPropagation(); // Prevent opening the modal when clicking save
+    
+    const isAlreadySaved = savedInternships.some(saved => saved.id === internship.id);
+    let updatedSavedInternships;
+    
+    if (isAlreadySaved) {
+      updatedSavedInternships = savedInternships.filter(saved => saved.id !== internship.id);
+    } else {
+      updatedSavedInternships = [...savedInternships, internship];
+    }
+    
+    setSavedInternships(updatedSavedInternships);
+    localStorage.setItem('savedInternships', JSON.stringify(updatedSavedInternships));
+  };
+
   const filteredInternships = getFilteredInternships();
   const locations = [...new Set(internships.map(i => i.location))];
 
   return (
-    <div className="internships-page">
+    <div className="internships-container">
       <div className="internships-header">
-        <h2>Available Internships</h2>
-        <button 
-          className={`suggested-button ${showSuggested ? 'active' : ''}`}
-          onClick={() => setShowSuggested(!showSuggested)}
-        >
-          {showSuggested ? 'Show All' : 'Show Suggested'}
-        </button>
-      </div>
-
-      <div className="search-filter-section">
-        <div className="search-bar">
-          <input
-            type="text"
-            placeholder="Search by job title, company, or keywords..."
+        <h1>Available Internships</h1>
+        <div className="search-filters">
+          <input 
+            type="text" 
+            placeholder="Search internships..." 
+            className="search-input"
             value={searchTerm}
             onChange={(e) => setSearchTerm(e.target.value)}
           />
-        </div>
-
-        <div className="filters">
-          <select 
-            name="industry" 
-            value={filters.industry}
-            onChange={handleFilterChange}
+          <button 
+            className="filter-btn"
+            onClick={() => setShowFilters(!showFilters)}
           >
-            <option value="">All Industries</option>
-            {INDUSTRIES.map(industry => (
-              <option key={industry} value={industry}>{industry}</option>
-            ))}
-          </select>
-
-          <select 
-            name="duration" 
-            value={filters.duration}
-            onChange={handleFilterChange}
-          >
-            <option value="">All Durations</option>
-            {DURATIONS.map(duration => (
-              <option key={duration} value={duration}>{duration}</option>
-            ))}
-          </select>
-
-          <select 
-            name="paid" 
-            value={filters.paid}
-            onChange={handleFilterChange}
-          >
-            <option value="">All Types</option>
-            <option value="true">Paid</option>
-            <option value="false">Unpaid</option>
-          </select>
-
-          <select 
-            name="location" 
-            value={filters.location}
-            onChange={handleFilterChange}
-          >
-            <option value="">All Locations</option>
-            {locations.map(location => (
-              <option key={location} value={location}>{location}</option>
-            ))}
-          </select>
-
-          <button onClick={resetFilters} className="reset-button">
-            Reset Filters
+            <i className="fas fa-filter"></i> Filters
           </button>
         </div>
+      </div>
 
-        <div className="skills-filter">
-          <input
-            type="text"
-            placeholder="Add skill to filter..."
-            onKeyDown={(e) => {
-              if (e.key === 'Enter') {
-                e.preventDefault();
-                const value = e.target.value.trim();
-                if (value) {
-                  handleSkillAdd(value);
-                  e.target.value = '';
-                }
-              }
-            }}
-          />
-          <div className="selected-skills">
-            {filters.skills.map(skill => (
-              <span key={skill} className="skill-tag">
-                {skill}
-                <button onClick={() => handleSkillRemove(skill)}>×</button>
-              </span>
-            ))}
+      {showFilters && (
+        <div className="filters-modal">
+          <div className="filters-content">
+            <h3>Filter Internships</h3>
+            
+            <div className="filter-group">
+              <label>Industry:</label>
+              <select
+                name="industry"
+                value={filters.industry}
+                onChange={handleFilterChange}
+              >
+                <option value="">All Industries</option>
+                {INDUSTRIES.map(industry => (
+                  <option key={industry} value={industry}>{industry}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="filter-group">
+              <label>Duration:</label>
+              <select
+                name="duration"
+                value={filters.duration}
+                onChange={handleFilterChange}
+              >
+                <option value="">All Durations</option>
+                {DURATIONS.map(duration => (
+                  <option key={duration} value={duration}>{duration}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="filter-group">
+              <label>Payment Type:</label>
+              <select
+                name="paid"
+                value={filters.paid}
+                onChange={handleFilterChange}
+              >
+                <option value="">All</option>
+                <option value="true">Paid</option>
+                <option value="false">Unpaid</option>
+              </select>
+            </div>
+
+            <div className="filter-group">
+              <label>Location:</label>
+              <select
+                name="location"
+                value={filters.location}
+                onChange={handleFilterChange}
+              >
+                <option value="">All Locations</option>
+                {locations.map(location => (
+                  <option key={location} value={location}>{location}</option>
+                ))}
+              </select>
+            </div>
+
+            <div className="filter-actions">
+              <button 
+                className="reset-btn"
+                onClick={resetFilters}
+              >
+                Reset Filters
+              </button>
+              <button 
+                className="apply-filters-btn"
+                onClick={() => setShowFilters(false)}
+              >
+                Apply Filters
+              </button>
+            </div>
           </div>
         </div>
-      </div>
+      )}
 
-      <div className="internships-grid">
-        {filteredInternships.map(internship => (
-          <div 
-            key={internship.id} 
-            className="internship-card"
-            onClick={() => setSelectedInternship(internship)}
-          >
-            <h3>{internship.title}</h3>
-            <h4>{internship.company}</h4>
-            <div className="internship-details">
-              <p><strong>Duration:</strong> {internship.duration}</p>
-              <p><strong>Location:</strong> {internship.location}</p>
-              <p><strong>Type:</strong> {internship.paid ? `Paid (${internship.salary || 'TBD'})` : 'Unpaid'}</p>
+      {loading ? (
+        <div className="loading">Loading internships...</div>
+      ) : (
+        <div className="internships-grid">
+          {filteredInternships.map(internship => (
+            <div 
+              key={internship.id} 
+              className="internship-card"
+              onClick={() => setSelectedInternship(internship)}
+            >
+              <div className="internship-header">
+                <h3>{internship.title}</h3>
+                <span className="company-name">{internship.company}</span>
+              </div>
+              
+              <div className="internship-details">
+                <div className="detail-item">
+                  <i className="fas fa-map-marker-alt"></i>
+                  <span>{internship.location}</span>
+                </div>
+                <div className="detail-item">
+                  <i className="fas fa-calendar"></i>
+                  <span>Deadline: {new Date(internship.deadline).toLocaleDateString()}</span>
+                </div>
+              </div>
+
+              <div className="skills-section">
+                <h4>Required Skills:</h4>
+                <div className="skills-list">
+                  {internship.skills.map((skill, index) => (
+                    <span key={index} className="skill-tag">{skill}</span>
+                  ))}
+                </div>
+              </div>
+
+              <div className="card-actions">
+                <button 
+                  className="apply-btn"
+                  onClick={(e) => handleApply(e, internship)}
+                >
+                  Apply Now
+                </button>
+                <button 
+                  className="save-btn"
+                  onClick={(e) => handleSaveInternship(e, internship)}
+                >
+                  <i className={`${savedInternships.some(saved => saved.id === internship.id) ? 'fas' : 'far'} fa-bookmark`}></i>
+                </button>
+              </div>
             </div>
-            <div className="skills-list">
-              {internship.skills.map(skill => (
-                <span key={skill} className="skill-tag">{skill}</span>
-              ))}
+          ))}
+          {filteredInternships.length === 0 && (
+            <div className="no-results">
+              <p>No internships found matching your criteria</p>
             </div>
-            <p className="deadline">Application Deadline: {internship.deadline}</p>
-          </div>
-        ))}
-        {filteredInternships.length === 0 && (
-          <div className="no-results">
-            <p>No internships found matching your criteria</p>
-          </div>
-        )}
-      </div>
+          )}
+        </div>
+      )}
 
       {selectedInternship && (
         <div className="internship-modal">
@@ -363,14 +445,14 @@ export default function Internships() {
                     >
                       Remove
                     </button>
-                  </div>
-                ))}
+        </div>
+      ))}
               </div>
             </div>
             <div className="modal-actions">
               <button 
                 className="apply-button"
-                onClick={handleApply}
+                onClick={(e) => handleApply(e, selectedInternship)}
                 disabled={applicationDocuments.length === 0}
               >
                 Apply Now
@@ -381,4 +463,6 @@ export default function Internships() {
       )}
     </div>
   );
-}
+};
+
+export default Internships;
