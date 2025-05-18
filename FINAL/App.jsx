@@ -41,13 +41,13 @@ import ScadReports from "./pages/ScadReports";
 import Statistics from "./pages/Statistics";
 import InternshipRecommendations from './components/InternshipRecommendations';
 import StudentProfile from './components/StudentProfile';
+
 function App() {
   return (
     <Router>
       <Navbar />
       <Sidebar />
       <Routes>
-
         {/* ─── Auth ───────────────────────────────── */}
         <Route path="/" element={<Login />} />
 
@@ -82,11 +82,12 @@ function App() {
         <Route path="/scad/companies" element={<ScadCompanies />} />
         <Route path="/scad/reports" element={<ScadReports />} />
         <Route path="/scad/statistics" element={<Statistics />} />
-   <StudentProfile studentId={studentId} />
-      <InternshipRecommendations studentId={studentId} />
+        
+        {/* Add routes for student profile and recommendations with proper path */}
+        <Route path="/student/profile/:studentId" element={<StudentProfile />} />
+        <Route path="/student/recommendations/:studentId" element={<InternshipRecommendations />} />
       </Routes>
     </Router>
-    
   );
 }
 
