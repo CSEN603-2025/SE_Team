@@ -6,4 +6,4 @@ export const users = [
   { email: "company@guc.edu.eg", password: "company123", role: "company" },
   { email: "faculty@guc.edu.eg", password: "faculty123", role: "faculty" },
   { email: "scad@guc.edu.eg", password: "scad123", role: "scad" },
-];
+]

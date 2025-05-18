@@ -1,32 +1,52 @@
-/* FINAL/App.css */
-body {
-  font-family: 'Segoe UI', sans-serif;
-  margin: 0;
-  padding: 0;
-  background: #f7f9fb;
-}
-
 .app-container {
   display: flex;
 }
 
-.main-content {
-  padding: 2rem;
-  flex: 1;
+.sidebar {
+  width: 200px;
+  background: #f0f0f0;
+  padding: 1rem;
+  height: 100vh;
 }
 
-.login-container {
-  max-width: 400px;
-  margin: 10% auto;
-  padding: 2rem;
+.sidebar h3 {
+  margin-top: 0;
+  color: #222;
+}
+
+.sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.sidebar li {
+  margin: 10px 0;
+}
+
+.sidebar a {
+  text-decoration: none;
+  color: #333;
+}
+
+.navbar {
+  background: #003366;
+  color: white;
+  padding: 1rem;
+  display: flex;
+  justify-content: space-between;
+}
+
+.logout-btn {
   background: white;
-  border-radius: 8px;
-  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  color: #003366;
+  border: none;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
 }
 
-input, button {
-  width: 100%;
-  padding: 0.7rem;
-  margin: 0.5rem 0;
-  font-size: 1rem;
+.main-content {
+  flex-grow: 1;
+  padding: 2rem;
+  background-color: #f9f9f9;
+  min-height: 100vh;
 }
