@@ -1,0 +1,127 @@
+.faculty-info-section {
+  margin-bottom: 20px;
+}
+
+.info-content {
+  padding: 16px;
+  background-color: var(--win98-light-gray);
+  border: 2px solid;
+  border-color: var(--win98-dark-gray) var(--win98-white) var(--win98-white) var(--win98-dark-gray);
+}
+
+.info-content p {
+  margin: 8px 0;
+  font-size: 12px;
+}
+
+.info-content p strong {
+  color: var(--win98-soft-blue);
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin: 16px 0;
+}
+
+.stats-grid .win98-card {
+  text-align: center;
+  background-color: var(--win98-light-gray);
+  border: 2px solid;
+  border-color: var(--win98-white) var(--win98-dark-gray) var(--win98-dark-gray) var(--win98-white);
+  padding: 8px;
+}
+
+.stats-grid .win98-card h3 {
+  margin: 0;
+  padding: 4px;
+  font-size: 12px;
+  border-bottom: 1px solid var(--win98-medium-gray);
+}
+
+.stats-grid .win98-card p {
+  font-size: 24px;
+  margin: 8px 0;
+  color: var(--win98-soft-blue);
+}
+
+.menu-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  gap: 12px;
+  padding: 16px;
+}
+
+.menu-item {
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  background-color: var(--win98-light-gray);
+  border: 2px solid;
+  border-color: var(--win98-white) var(--win98-dark-gray) var(--win98-dark-gray) var(--win98-white);
+  cursor: pointer;
+}
+
+.menu-item .icon {
+  font-size: 24px;
+  color: var(--win98-soft-blue);
+}
+
+.menu-item .menu-text {
+  font-size: 11px;
+  text-align: center;
+}
+
+.menu-item:hover {
+  background-color: var(--win98-white);
+}
+
+.menu-item:hover .icon {
+  transform: scale(1.1);
+  transition: transform 0.2s ease;
+}
+
+.menu-item:active {
+  border-color: var(--win98-dark-gray) var(--win98-white) var(--win98-white) var(--win98-dark-gray);
+  padding-top: 2px;
+  padding-left: 2px;
+}
+
+.title-bar {
+  margin-bottom: 0;
+}
+
+.window-body {
+  padding: 16px;
+  background-color: var(--win98-light-gray);
+}
+
+/* Report status indicators */
+.report-status {
+  display: inline-block;
+  padding: 2px 6px;
+  font-size: 11px;
+  border: 1px solid;
+}
+
+.report-status.pending {
+  background-color: #FFE4B5;
+  border-color: #DAA520;
+  color: #8B4513;
+}
+
+.report-status.accepted {
+  background-color: #90EE90;
+  border-color: #006400;
+  color: #006400;
+}
+
+.report-status.flagged {
+  background-color: #FFB6C1;
+  border-color: #8B0000;
+  color: #8B0000;
+} 

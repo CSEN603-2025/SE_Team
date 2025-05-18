@@ -1,0 +1,51 @@
+.confirm-dialog-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 9999;
+}
+
+.confirm-dialog {
+  width: 300px;
+  background-color: var(--win98-light-gray);
+  box-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
+  animation: dialogAppear 0.2s ease-out;
+}
+
+.confirm-dialog .window-body {
+  padding: 16px;
+}
+
+.confirm-dialog p {
+  margin: 0 0 16px 0;
+  font-size: 12px;
+  line-height: 1.4;
+}
+
+.confirm-dialog .button-group {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+}
+
+.confirm-dialog .win98-button {
+  min-width: 70px;
+  padding: 4px 8px;
+}
+
+@keyframes dialogAppear {
+  from {
+    transform: scale(0.8);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1);
+    opacity: 1;
+  }
+} 

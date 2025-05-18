@@ -1,0 +1,143 @@
+:root {
+  --win98-light-gray: #c0c0c0;
+  --win98-soft-blue: #007BD7;
+  --win98-medium-gray: #808080;
+  --win98-dark-gray: #404040;
+  --win98-black: #000000;
+  --win98-white: #FFFFFF;
+  --win98-link-blue: #0000EE;
+  --win98-silver: #A0A0A0;
+}
+
+/* Base Windows 98 styles */
+.win98-container {
+  background-color: var(--win98-light-gray);
+  border: 2px solid;
+  border-color: var(--win98-white) var(--win98-dark-gray) var(--win98-dark-gray) var(--win98-white);
+  padding: 2px;
+  margin: 20px;
+  font-family: 'MS Sans Serif', sans-serif;
+}
+
+.title-bar {
+  background: var(--win98-soft-blue);
+  padding: 3px 2px 3px 3px;
+  margin-bottom: 2px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.title-bar-text {
+  color: var(--win98-white);
+  font-weight: bold;
+  font-size: 12px;
+}
+
+.window-body {
+  padding: 8px;
+  background-color: var(--win98-light-gray);
+}
+
+/* Button styles */
+.win98-button {
+  background-color: var(--win98-light-gray);
+  border: 2px solid;
+  border-color: var(--win98-white) var(--win98-dark-gray) var(--win98-dark-gray) var(--win98-white);
+  padding: 6px 12px;
+  font-size: 12px;
+  font-family: 'MS Sans Serif', sans-serif;
+  color: var(--win98-black);
+  cursor: pointer;
+}
+
+.win98-button:active {
+  border-color: var(--win98-dark-gray) var(--win98-white) var(--win98-white) var(--win98-dark-gray);
+}
+
+.win98-button:disabled {
+  color: var(--win98-medium-gray);
+  cursor: not-allowed;
+}
+
+/* Input styles */
+.win98-input {
+  background-color: var(--win98-white);
+  border: 2px solid;
+  border-color: var(--win98-dark-gray) var(--win98-white) var(--win98-white) var(--win98-dark-gray);
+  padding: 3px 5px;
+  font-family: 'MS Sans Serif', sans-serif;
+  font-size: 12px;
+}
+
+/* Card styles */
+.win98-card {
+  background-color: var(--win98-white);
+  border: 2px solid;
+  border-color: var(--win98-dark-gray) var(--win98-white) var(--win98-white) var(--win98-dark-gray);
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+/* Pro student badge */
+.pro-badge {
+  background-color: var(--win98-soft-blue);
+  color: var(--win98-white);
+  padding: 2px 6px;
+  border-radius: 2px;
+  font-size: 10px;
+  font-weight: bold;
+}
+
+/* Status bar */
+.status-bar {
+  border: 1px solid;
+  border-color: var(--win98-dark-gray) var(--win98-white) var(--win98-white) var(--win98-dark-gray);
+  padding: 3px 5px;
+  font-size: 11px;
+  background-color: var(--win98-light-gray);
+}
+
+/* Menu items */
+.menu-item {
+  background-color: var(--win98-light-gray);
+  border: 2px solid;
+  border-color: var(--win98-white) var(--win98-dark-gray) var(--win98-dark-gray) var(--win98-white);
+  padding: 8px;
+  text-align: center;
+  cursor: pointer;
+}
+
+.menu-item:active {
+  border-color: var(--win98-dark-gray) var(--win98-white) var(--win98-white) var(--win98-dark-gray);
+}
+
+/* Links */
+.win98-link {
+  color: var(--win98-link-blue);
+  text-decoration: none;
+}
+
+.win98-link:hover {
+  text-decoration: underline;
+}
+
+/* Form elements */
+select.win98-select {
+  background-color: var(--win98-white);
+  border: 2px solid;
+  border-color: var(--win98-dark-gray) var(--win98-white) var(--win98-white) var(--win98-dark-gray);
+  padding: 2px;
+  font-family: 'MS Sans Serif', sans-serif;
+  font-size: 12px;
+}
+
+textarea.win98-textarea {
+  background-color: var(--win98-white);
+  border: 2px solid;
+  border-color: var(--win98-dark-gray) var(--win98-white) var(--win98-white) var(--win98-dark-gray);
+  padding: 5px;
+  font-family: 'MS Sans Serif', sans-serif;
+  font-size: 12px;
+  resize: vertical;
+} 

@@ -1,17 +1,14 @@
 import React, { useState, useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
 import { FaUser, FaFileAlt, FaUpload, FaGlobe, FaBook, FaBuilding, FaGraduationCap, FaClipboardCheck, FaFileContract, FaComments, FaSearch } from 'react-icons/fa';
-import './StudentDashboard.css';
+import { applications, reports } from '../data/dummyData';
+import '../styles/StudentDashboard.css';
 
 const StudentDashboard = () => {
+  const navigate = useNavigate();
   const [user, setUser] = useState(() => {
     const savedUser = localStorage.getItem('user');
-    return savedUser ? JSON.parse(savedUser) : {
-      name: '',
-      major: '',
-      semester: '',
-      isProStudent: false,
-      completedInternshipMonths: 0
-    };
+    return savedUser ? JSON.parse(savedUser) : null;
   });
 
   const [stats, setStats] = useState({
@@ -22,15 +19,24 @@ const StudentDashboard = () => {
   });
 
   useEffect(() => {
-    // In a real app, this would fetch from an API
-    // Mock data for demonstration
+    if (!user) {
+      navigate('/');
+      return;
+    }
+
+    // Calculate stats from dummy data
+    const userApplications = applications.filter(app => app.studentId === user.id);
+    const userReports = reports.filter(report => report.studentId === user.id);
+    const activeApps = userApplications.filter(app => app.status === 'Accepted');
+    const completedApps = userApplications.filter(app => app.status === 'Completed');
+
     setStats({
-      totalApplications: 5,
-      activeInternships: 1,
-      completedInternships: 2,
-      reportsSubmitted: 2
+      totalApplications: userApplications.length,
+      activeInternships: activeApps.length,
+      completedInternships: completedApps.length,
+      reportsSubmitted: userReports.length
     });
-  }, []);
+  }, [user, navigate]);
 
   const navigationItems = [
     { icon: <FaUser />, text: 'View/Edit Profile', link: '/profile' },
@@ -46,9 +52,13 @@ const StudentDashboard = () => {
     { icon: <FaSearch />, text: 'Explore Internships', link: '/explore' }
   ];
 
+  if (!user) {
+    return null;
+  }
+
   return (
     <div className="dashboard-container">
-      <h1 className="dashboard-title">Welcome to your Student Dashboard</h1>
+      <h1 className="dashboard-title">Welcome, {user.name}!</h1>
       
       {user.isProStudent && (
         <div className="pro-status-banner">
@@ -88,4 +98,4 @@ const StudentDashboard = () => {
   );
 };
 
-export default StudentDashboard;
+export default StudentDashboard; 

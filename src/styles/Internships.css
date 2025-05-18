@@ -1,0 +1,258 @@
+.internships-container {
+  padding: var(--spacing-md);
+}
+
+/* Search and Filter Section */
+.search-section {
+  background: white;
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  margin-bottom: 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+}
+
+.search-input {
+  flex: 1;
+  min-width: 200px;
+}
+
+.search-input input {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--cold-sky);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+}
+
+.date-filters {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: center;
+  flex-wrap: wrap;
+}
+
+.date-input {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+.date-input label {
+  color: var(--text-secondary);
+  font-size: var(--font-size-sm);
+}
+
+.date-input input {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--cold-sky);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+}
+
+.status-filter {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--cold-sky);
+  border-radius: var(--border-radius-sm);
+  font-size: var(--font-size-sm);
+  color: var(--text-secondary);
+}
+
+/* Internships Table */
+.internships-table {
+  background: white;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+  overflow: hidden;
+  margin-bottom: 1.5rem;
+}
+
+.internships-table table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.internships-table th,
+.internships-table td {
+  padding: var(--spacing-md);
+  text-align: left;
+  border-bottom: 1px solid var(--wool);
+}
+
+.internships-table th {
+  background-color: var(--wool);
+  font-weight: 600;
+  color: var(--text-secondary);
+}
+
+.select-btn {
+  padding: var(--spacing-xs) var(--spacing-md);
+  background-color: var(--caramel);
+  color: white;
+  border: none;
+  border-radius: var(--border-radius-sm);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.select-btn:hover {
+  opacity: 0.9;
+}
+
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: 9999px;
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+}
+
+.status-badge.success {
+  background-color: var(--success-color);
+  color: white;
+}
+
+.status-badge.active {
+  background-color: var(--cold-sky);
+  color: white;
+}
+
+.spinning {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Internship Details */
+.internship-details {
+  background: white;
+  padding: 1.5rem;
+  border-radius: var(--border-radius-md);
+  box-shadow: var(--shadow-sm);
+}
+
+.internship-details h2 {
+  color: var(--text-primary);
+  font-size: var(--font-size-lg);
+  margin-bottom: 1.5rem;
+  padding-bottom: var(--spacing-sm);
+  border-bottom: 2px solid var(--cold-sky);
+}
+
+.details-content {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.detail-item {
+  display: flex;
+  gap: var(--spacing-sm);
+}
+
+.detail-item label {
+  font-weight: 600;
+  color: var(--text-secondary);
+  min-width: 100px;
+}
+
+/* Evaluation Section */
+.evaluation-section,
+.report-section,
+.courses-section {
+  background-color: var(--wool);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-md);
+  margin-top: var(--spacing-md);
+}
+
+.evaluation-section h3,
+.report-section h3,
+.courses-section h3 {
+  color: var(--text-primary);
+  font-size: var(--font-size-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.recommend-checkbox {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+  margin-bottom: var(--spacing-md);
+}
+
+.comment-section textarea,
+.report-form textarea {
+  width: 100%;
+  padding: var(--spacing-sm);
+  border: 1px solid var(--cold-sky);
+  border-radius: var(--border-radius-sm);
+  resize: vertical;
+}
+
+/* Report Form */
+.report-form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.form-group {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.form-group label {
+  color: var(--text-secondary);
+  font-weight: 500;
+}
+
+.form-group input {
+  padding: var(--spacing-sm);
+  border: 1px solid var(--cold-sky);
+  border-radius: var(--border-radius-sm);
+}
+
+/* Courses Section */
+.courses-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.course-item {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-sm);
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .search-section {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .date-filters {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .internships-table {
+    overflow-x: auto;
+  }
+
+  .detail-item {
+    flex-direction: column;
+  }
+} 
