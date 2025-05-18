@@ -1,13 +1,13 @@
 // FINAL/Login.jsx
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { users } from './data';
 import './Login.css';
 
 const Login = () => {
   const [credentials, setCredentials] = useState({
-    username: '',
-    password: '',
-    role: 'scad'
+    email: '',
+    password: ''
   });
   const [error, setError] = useState('');
   const navigate = useNavigate();
@@ -25,16 +25,32 @@ const Login = () => {
     setError('');
 
     // Simple validation
-    if (!credentials.username || !credentials.password) {
+    if (!credentials.email || !credentials.password) {
       setError('Please fill in all fields');
       return;
     }
 
-    // Mock authentication
-    // In a real application, this would be an API call
-    if (credentials.username === 'admin' && credentials.password === 'admin123') {
-      // Redirect based on role
-      navigate(credentials.role === 'scad' ? '/scad' : '/faculty');
+    // Find user with matching credentials
+    const user = users.find(u => 
+      u.email === credentials.email && 
+      u.password === credentials.password
+    );
+
+    if (user) {
+      // Store user info in localStorage
+      localStorage.setItem('userType', user.role);
+      localStorage.setItem('userEmail', user.email);
+      
+      // Redirect based on user role
+      const redirectPaths = {
+        'student': '/student',
+        'scad': '/scad',
+        'faculty': '/faculty',
+        'company': '/company',
+        'prostudent': '/pro-student'
+      };
+      
+      navigate(redirectPaths[user.role]);
     } else {
       setError('Invalid credentials');
     }
@@ -46,27 +62,14 @@ const Login = () => {
         <h2>Login</h2>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
-            <label htmlFor="role">Role</label>
-            <select
-              id="role"
-              name="role"
-              value={credentials.role}
-              onChange={handleChange}
-            >
-              <option value="scad">SCAD Staff</option>
-              <option value="faculty">Faculty</option>
-            </select>
-          </div>
-
-          <div className="form-group">
-            <label htmlFor="username">Username</label>
+            <label htmlFor="email">Email</label>
             <input
-              type="text"
-              id="username"
-              name="username"
-              value={credentials.username}
+              type="email"
+              id="email"
+              name="email"
+              value={credentials.email}
               onChange={handleChange}
-              placeholder="Enter your username"
+              placeholder="Enter your email"
             />
           </div>
 

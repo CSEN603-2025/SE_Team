@@ -1,23 +1,32 @@
 // FINAL/components/Navbar.jsx
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
+import './Navbar.css';
 
 const Navbar = () => {
   const navigate = useNavigate();
   const role = localStorage.getItem("role");
 
   const handleLogout = () => {
-    localStorage.removeItem("role");
+    // Clear all relevant localStorage items
+    localStorage.clear();
+    // Navigate to login page
     navigate("/");
   };
 
   return (
     <div className="navbar">
-      <span>SCAD Internship System</span>
+      <div className="navbar-brand">
+        <i className="fas fa-briefcase"></i>
+        <span>SCAD Internship System</span>
+      </div>
       {role && (
-        <button onClick={handleLogout} className="logout-btn">
-          Logout
-        </button>
+        <div className="navbar-actions">
+          <button onClick={handleLogout} className="logout-btn">
+            <i className="fas fa-sign-out-alt"></i>
+            <span>Logout</span>
+          </button>
+        </div>
       )}
     </div>
   );

@@ -50,3 +50,27 @@
   background-color: #f9f9f9;
   min-height: 100vh;
 }
+
+.app {
+  min-height: 100vh;
+}
+
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  margin-left: 250px; /* Width of sidebar */
+  margin-top: 60px; /* Height of navbar */
+}
+
+/* Basic responsive design */
+@media (max-width: 768px) {
+  .main-content {
+    margin-left: 0;
+    padding: 10px;
+  }
+}

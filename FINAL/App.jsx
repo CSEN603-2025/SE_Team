@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { BrowserRouter as Router, Routes, Route, Navigate } from "react-router-dom";
 
 // ─── Core Layout Components ───────────────────────
@@ -47,68 +47,90 @@ import Statistics from "./pages/Statistics";
 import InternshipRecommendations from './components/InternshipRecommendations';
 
 // Initialize sample data
-import './data/sampleData';
+import initializeData from './data';
 
 function App() {
+  useEffect(() => {
+    // Initialize sample data when the app starts
+    initializeData();
+  }, []);
+
   return (
     <Router>
-      <Navbar />
-      <Sidebar />
-      <div className="main-content">
+      <div className="app">
         <Routes>
-          {/* ─── Auth ───────────────────────────────── */}
+          {/* Login route */}
           <Route path="/" element={<Login />} />
+          <Route path="/login" element={<Login />} />
 
-          {/* ─── Dashboards ────────────────────────── */}
-          <Route path="/student" element={<StudentDashboard />} />
-          <Route path="/pro-student" element={<ProStudentDashboard />} />
-          <Route path="/company" element={<CompanyDashboard />} />
-          <Route path="/faculty" element={<FacultyDashboard />} />
-          <Route path="/scad" element={<ScadDashboard />} />
+          {/* Protected routes */}
+          <Route
+            path="/student/*"
+            element={
+              <div className="dashboard-layout">
+                <Navbar />
+                <Sidebar />
+                <div className="main-content">
+                  <StudentDashboard />
+                </div>
+              </div>
+            }
+          />
 
-          {/* ─── Student Routes ─────────────────────── */}
-          <Route path="/student/profile" element={<StudentProfile />} />
-          <Route path="/student/internships" element={<Internships />} />
-          <Route path="/student/applications" element={<Applications />} />
-          <Route path="/student/reports" element={<Reports />} />
-          <Route path="/student/courses" element={<Courses />} />
-          <Route path="/student/evaluations" element={<Evaluations />} />
+          <Route
+            path="/pro-student/*"
+            element={
+              <div className="dashboard-layout">
+                <Navbar />
+                <Sidebar />
+                <div className="main-content">
+                  <ProStudentDashboard />
+                </div>
+              </div>
+            }
+          />
 
-          {/* ─── Pro Student Routes ─────────────────── */}
-          <Route path="/pro-student/profile" element={<StudentProfile />} />
-          <Route path="/pro-student/internships" element={<Internships />} />
-          <Route path="/pro-student/applications" element={<Applications />} />
-          <Route path="/pro-student/reports" element={<Reports />} />
-          <Route path="/pro-student/reports/new" element={<Reports mode="create" />} />
-          <Route path="/pro-student/courses" element={<Courses />} />
-          <Route path="/pro-student/evaluations" element={<Evaluations />} />
-          <Route path="/pro-student/assessment" element={<Assessment />} />
-          <Route path="/pro-student/workshops" element={<Workshops />} />
-          <Route path="/pro-student/profile-views" element={<ProfileViews />} />
-          <Route path="/pro-student/appointments" element={<Appointments />} />
-          <Route path="/pro-student/video-call/:appointmentId" element={<VideoCall />} />
+          <Route
+            path="/company/*"
+            element={
+              <div className="dashboard-layout">
+                <Navbar />
+                <Sidebar />
+                <div className="main-content">
+                  <CompanyDashboard />
+                </div>
+              </div>
+            }
+          />
 
-          {/* ─── Company Routes ─────────────────────── */}
-          <Route path="/company/profile" element={<CompanyProfile />} />
-          <Route path="/company/posts" element={<InternshipPost />} />
-          <Route path="/company/applicants" element={<Applicants />} />
-          <Route path="/company/evaluations" element={<CompanyEvaluations />} />
+          <Route
+            path="/faculty/*"
+            element={
+              <div className="dashboard-layout">
+                <Navbar />
+                <Sidebar />
+                <div className="main-content">
+                  <FacultyDashboard />
+                </div>
+              </div>
+            }
+          />
 
-          {/* ─── Faculty Routes ─────────────────────── */}
-          <Route path="/faculty/reports" element={<FacultyReports />} />
-          <Route path="/faculty/students" element={<StudentList />} />
+          <Route
+            path="/scad/*"
+            element={
+              <div className="dashboard-layout">
+                <Navbar />
+                <Sidebar />
+                <div className="main-content">
+                  <ScadDashboard />
+                </div>
+              </div>
+            }
+          />
 
-          {/* ─── SCAD Routes ────────────────────────── */}
-          <Route path="/scad/companies" element={<ScadCompanies />} />
-          <Route path="/scad/reports" element={<ScadReports />} />
-          <Route path="/scad/statistics" element={<Statistics />} />
-          
-          {/* Add routes for student profile and recommendations with proper path */}
-          <Route path="/student/profile/:studentId" element={<StudentProfile />} />
-          <Route path="/student/recommendations/:studentId" element={<InternshipRecommendations />} />
-
-          {/* ─── Redirect to Login if no other route matches ─────────────────── */}
-          <Route path="/" element={<Navigate to="/login" replace />} />
+          {/* Redirect any unknown routes to login */}
+          <Route path="*" element={<Navigate to="/login" replace />} />
         </Routes>
       </div>
     </Router>
