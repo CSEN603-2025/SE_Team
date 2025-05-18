@@ -1,0 +1,17 @@
+[
+  {
+    "id": "CSEN401",
+    "code": "CSEN401",
+    "name": "Web Development"
+  },
+  {
+    "id": "CSEN402",
+    "code": "CSEN402",
+    "name": "Machine Learning"
+  },
+  {
+    "id": "CSEN403",
+    "code": "CSEN403",
+    "name": "Software Engineering"
+  }
+]

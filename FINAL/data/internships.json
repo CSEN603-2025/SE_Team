@@ -1,0 +1,32 @@
+[
+  {
+    "id": 101,
+    "company": "Amazon",
+    "position": "Frontend Developer",
+    "industry": "Technology",
+    "duration": "3 months",
+    "paid": true,
+    "salary": 6000,
+    "skills": [
+      "React",
+      "HTML",
+      "CSS"
+    ],
+    "description": "Build scalable web UIs.",
+    "status": "Open"
+  },
+  {
+    "id": 102,
+    "company": "Valeo",
+    "position": "AI Intern",
+    "industry": "Automotive",
+    "duration": "2 months",
+    "paid": false,
+    "skills": [
+      "Python",
+      "OpenCV"
+    ],
+    "description": "Develop vision systems.",
+    "status": "Open"
+  }
+]

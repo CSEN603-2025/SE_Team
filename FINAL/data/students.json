@@ -1,0 +1,25 @@
+[
+  {
+    "id": 201,
+    "name": "Sara Adel",
+    "email": "sara@student.guc.edu.eg",
+    "major": "CSEN",
+    "semester": 7,
+    "interests": [
+      "Web",
+      "AI"
+    ],
+    "internshipHistory": []
+  },
+  {
+    "id": 202,
+    "name": "Omar Khaled",
+    "email": "omar@student.guc.edu.eg",
+    "major": "DSEN",
+    "semester": 6,
+    "interests": [
+      "Data Science"
+    ],
+    "internshipHistory": []
+  }
+]

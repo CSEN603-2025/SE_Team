@@ -1,0 +1,23 @@
+[
+  {
+    "id": 1,
+    "name": "Amazon",
+    "industry": "Technology",
+    "size": "Corporate",
+    "status": "Accepted"
+  },
+  {
+    "id": 2,
+    "name": "Valeo",
+    "industry": "Automotive",
+    "size": "Large",
+    "status": "Pending"
+  },
+  {
+    "id": 3,
+    "name": "Inertia",
+    "industry": "Engineering",
+    "size": "Medium",
+    "status": "Accepted"
+  }
+]
