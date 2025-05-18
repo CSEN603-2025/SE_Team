@@ -1,58 +1,87 @@
 // FINAL/components/Sidebar.jsx
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useState } from 'react';
+import { Link, useLocation } from 'react-router-dom';
+import './Sidebar.css';
 
-const Sidebar = () => {
-  const role = localStorage.getItem('role');
+function Sidebar() {
+  const location = useLocation();
+  const [isProUser, setIsProUser] = useState(localStorage.getItem('isProUser') === 'true');
 
-  const linksByRole = {
-    student: [
-      { label: 'Dashboard', path: '/student' },
-      { label: 'Internships', path: '/student/internships' },
-      { label: 'Applications', path: '/student/applications' },
-      { label: 'Reports', path: '/student/reports' },
-      { label: 'Courses', path: '/student/courses' },
-    ],
-    prostudent: [
-      { label: 'Dashboard', path: '/prostudent' },
-      { label: 'Internships', path: '/prostudent/internships' },
-      { label: 'Workshops', path: '/prostudent/workshops' },
-      { label: 'Assessment', path: '/prostudent/assessment' },
-    ],
-    company: [
-      { label: 'Dashboard', path: '/company' },
-      { label: 'Post Internship', path: '/company/posts' },
-      { label: 'Applicants', path: '/company/applicants' },
-      { label: 'Evaluations', path: '/company/evaluations' },
-    ],
-    faculty: [
-      { label: 'Dashboard', path: '/faculty' },
-      { label: 'Reports', path: '/faculty/reports' },
-      { label: 'Students', path: '/faculty/students' },
-    ],
-    scad: [
-      { label: 'Dashboard', path: '/scad' },
-      { label: 'Companies', path: '/scad/companies' },
-      { label: 'Students', path: '/scad/students' },
-      { label: 'Reports', path: '/scad/reports' },
-      { label: 'Statistics', path: '/scad/statistics' },
-    ]
+  const toggleProUser = () => {
+    const newValue = !isProUser;
+    setIsProUser(newValue);
+    localStorage.setItem('isProUser', newValue);
   };
-
-  const navLinks = linksByRole[role] || [];
 
   return (
     <div className="sidebar">
-      <h3>{role?.toUpperCase()} Panel</h3>
-      <ul>
-        {navLinks.map((link) => (
-          <li key={link.path}>
-            <Link to={link.path}>{link.label}</Link>
-          </li>
-        ))}
-      </ul>
+      <div className="logo">
+        <h2>Internship Portal</h2>
+      </div>
+
+      <div className="pro-toggle">
+        <label className="switch">
+          <input
+            type="checkbox"
+            checked={isProUser}
+            onChange={toggleProUser}
+          />
+          <span className="slider round"></span>
+        </label>
+        <span className="pro-label">PRO Features</span>
+      </div>
+
+      <nav>
+        <h3>Basic Features</h3>
+        <Link to="/" className={location.pathname === '/' ? 'active' : ''}>
+          Dashboard
+        </Link>
+        <Link to="/profile" className={location.pathname === '/profile' ? 'active' : ''}>
+          Profile
+        </Link>
+        <Link to="/internships" className={location.pathname === '/internships' ? 'active' : ''}>
+          Internships
+        </Link>
+
+        {isProUser && (
+          <>
+            <h3>PRO Features</h3>
+            <Link to="/pro" className={location.pathname === '/pro' ? 'active' : ''}>
+              PRO Dashboard
+            </Link>
+            <Link to="/pro/workshops" className={location.pathname === '/pro/workshops' ? 'active' : ''}>
+              Workshops
+            </Link>
+            <Link to="/pro/evaluations" className={location.pathname === '/pro/evaluations' ? 'active' : ''}>
+              Evaluations
+            </Link>
+            <Link to="/pro/assessment" className={location.pathname === '/pro/assessment' ? 'active' : ''}>
+              Assessment
+            </Link>
+            <Link to="/pro/appointments" className={location.pathname === '/pro/appointments' ? 'active' : ''}>
+              Appointments
+            </Link>
+            <Link to="/pro/profile-views" className={location.pathname === '/pro/profile-views' ? 'active' : ''}>
+              Profile Views
+            </Link>
+            <Link to="/pro/video-call" className={location.pathname === '/pro/video-call' ? 'active' : ''}>
+              Video Call
+            </Link>
+          </>
+        )}
+      </nav>
+
+      <div className="user-info">
+        <div className="avatar">
+          <img src="/avatar-placeholder.png" alt="User avatar" />
+        </div>
+        <div className="user-details">
+          <p className="user-name">John Doe</p>
+          <p className="user-role">{isProUser ? 'PRO Student' : 'Student'}</p>
+        </div>
+      </div>
     </div>
   );
-};
+}
 
 export default Sidebar;
