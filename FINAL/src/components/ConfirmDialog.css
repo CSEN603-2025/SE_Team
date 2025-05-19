@@ -1,0 +1,55 @@
+.confirm-dialog-backdrop {
+  position: fixed;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: rgba(0,0,0,0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 10000;
+}
+.confirm-dialog-modal {
+  background: #fff;
+  border-radius: 10px;
+  box-shadow: 0 4px 24px #0003;
+  padding: 32px 28px 24px 28px;
+  min-width: 320px;
+  max-width: 90vw;
+  text-align: center;
+}
+.confirm-dialog-modal h3 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 20px;
+}
+.confirm-dialog-modal p {
+  margin-bottom: 24px;
+  color: #444;
+}
+.confirm-dialog-actions {
+  display: flex;
+  justify-content: center;
+  gap: 18px;
+}
+.cancel-btn, .confirm-btn {
+  padding: 8px 22px;
+  border-radius: 6px;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.cancel-btn {
+  background: #e0e0e0;
+  color: #333;
+}
+.cancel-btn:hover {
+  background: #bdbdbd;
+}
+.confirm-btn {
+  background: #4a90e2;
+  color: #fff;
+}
+.confirm-btn:hover {
+  background: #357abd;
+} 

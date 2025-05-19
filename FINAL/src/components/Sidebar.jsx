@@ -1,7 +1,7 @@
 import React from 'react';
-import { useNavigate, useLocation } from 'react-router-dom';
+import { useNavigate, useLocation, NavLink } from 'react-router-dom';
 import { FaHome, FaUser, FaBriefcase, FaGraduationCap, FaFileAlt, 
-         FaChartBar, FaCog, FaUsers, FaClipboardCheck, FaSearch } from 'react-icons/fa';
+         FaChartBar, FaCog, FaUsers, FaClipboardCheck, FaSearch, FaFilter, FaCheck, FaTimes, FaComments } from 'react-icons/fa';
 import '../styles/Sidebar.css';
 
 const Sidebar = () => {
@@ -37,6 +37,10 @@ const Sidebar = () => {
           { path: '/view-reports', icon: <FaFileAlt />, label: 'View Reports' },
           { path: '/student-list', icon: <FaUsers />, label: 'Student List' },
           { path: '/review-reports', icon: <FaClipboardCheck />, label: 'Review Reports' },
+          { path: '/filter-reports', icon: <FaFilter />, label: 'Filter Reports' },
+          { path: '/accept-reports', icon: <FaCheck />, label: 'Accept Reports' },
+          { path: '/flag-reports', icon: <FaTimes />, label: 'Flag Reports' },
+          { path: '/submit-comments', icon: <FaComments />, label: 'Submit Comments' },
           { path: '/search-reports', icon: <FaSearch />, label: 'Search Reports' }
         ];
 
@@ -71,14 +75,14 @@ const Sidebar = () => {
     <div className="sidebar">
       <div className="sidebar-content">
         {getNavItems().map((item, index) => (
-          <button
+          <NavLink
             key={index}
-            className={`nav-item ${location.pathname === item.path ? 'active' : ''}`}
-            onClick={() => navigate(item.path)}
+            to={item.path}
+            className={({ isActive }) => `nav-item${isActive ? ' active' : ''}`}
           >
             <span className="nav-icon">{item.icon}</span>
             <span className="nav-label">{item.label}</span>
-          </button>
+          </NavLink>
         ))}
       </div>
     </div>

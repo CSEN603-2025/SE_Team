@@ -1,8 +1,12 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DashboardLayout from '../../components/DashboardLayout';
 import { FaSearch, FaCalendarAlt, FaFilter, FaCheckCircle, FaSpinner, FaFileAlt, FaTrash, FaEdit, FaDownload } from 'react-icons/fa';
 import { jsPDF } from 'jspdf';
 import '../../styles/Internships.css';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import '../../styles/FacultyDashboard.css';
+import Loader from '../../components/Loader';
+import ConfirmDialog from '../../components/ConfirmDialog';
 
 const Internships = () => {
   const [searchTerm, setSearchTerm] = useState('');
@@ -23,6 +27,10 @@ const Internships = () => {
     rating: 5,
     comment: ''
   });
+  const [activeFilters, setActiveFilters] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [confirmTarget, setConfirmTarget] = useState(null);
 
   // Dummy data for demonstration
   const internships = [
@@ -47,6 +55,12 @@ const Internships = () => {
       evaluation: null
     }
   ];
+
+  useEffect(() => {
+    // Simulate loading
+    const timer = setTimeout(() => setLoading(false), 900);
+    return () => clearTimeout(timer);
+  }, []);
 
   const handleSearch = (e) => {
     setSearchTerm(e.target.value);
@@ -137,61 +151,136 @@ const Internships = () => {
     doc.save(`${selectedInternship.company}-internship-report.pdf`);
   };
 
+  const handleAddFilter = (type, value, label) => {
+    if (!value || value === 'all' || activeFilters.some(f => f.type === type && f.value === value)) return;
+    setActiveFilters([...activeFilters, { type, value, label }]);
+  };
+
+  const handleRemoveFilter = (type, value) => {
+    setActiveFilters(activeFilters.filter(f => !(f.type === type && f.value === value)));
+    if (type === 'status') setShowAll('all');
+    if (type === 'dateFrom') setDateRange(r => ({ ...r, from: '' }));
+    if (type === 'dateTo') setDateRange(r => ({ ...r, to: '' }));
+    if (type === 'search') setSearchTerm('');
+  };
+
+  const handleClearAll = () => {
+    setActiveFilters([]);
+    setShowAll('all');
+    setDateRange({ from: '', to: '' });
+    setSearchTerm('');
+  };
+
+  const handleDeleteClick = (internship) => {
+    setConfirmTarget(internship);
+    setConfirmOpen(true);
+  };
+
+  const handleConfirmDelete = () => {
+    // Here you would delete the internship from state or API
+    setConfirmOpen(false);
+    setConfirmTarget(null);
+    // Optionally show a toast here
+  };
+
   const filteredInternships = internships.filter(internship => {
-    const matchesSearch = internship.company.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                         internship.role.toLowerCase().includes(searchTerm.toLowerCase());
-    const matchesDateRange = (!dateRange.from || internship.startDate >= dateRange.from) &&
-                           (!dateRange.to || internship.endDate <= dateRange.to || !internship.endDate);
-    const matchesStatus = showAll === 'all' || 
-                         (showAll === 'current' && internship.status === 'Current Intern') ||
-                         (showAll === 'completed' && internship.status === 'Internship Complete');
-    
-    return matchesSearch && matchesDateRange && matchesStatus;
+    let matches = true;
+    activeFilters.forEach(f => {
+      if (f.type === 'search') {
+        matches = matches && (
+          internship.company.toLowerCase().includes(f.value.toLowerCase()) ||
+          internship.role.toLowerCase().includes(f.value.toLowerCase())
+        );
+      }
+      if (f.type === 'status') {
+        matches = matches && (
+          (f.value === 'current' && internship.status === 'Current Intern') ||
+          (f.value === 'completed' && internship.status === 'Internship Complete')
+        );
+      }
+      if (f.type === 'dateFrom') {
+        matches = matches && (!f.value || internship.startDate >= f.value);
+      }
+      if (f.type === 'dateTo') {
+        matches = matches && (!f.value || internship.endDate <= f.value || !internship.endDate);
+      }
+    });
+    return matches;
   });
 
   return (
     <DashboardLayout title="My Internships">
-      <div className="modern-search-section">
-        <div className="search-bar">
-          <FaSearch className="search-icon" />
-          <input
-            type="text"
-            placeholder="Search company or role..."
-            value={searchTerm}
-            onChange={handleSearch}
-          />
-        </div>
-        <div className="filter-bar">
+      {loading && <Loader />}
+      <ConfirmDialog
+        open={confirmOpen}
+        title="Delete Internship"
+        message={`Are you sure you want to delete the internship at '${confirmTarget?.company}'? This action cannot be undone.`}
+        onConfirm={handleConfirmDelete}
+        onCancel={() => setConfirmOpen(false)}
+      />
+      <div className="modern-search-section creative-filter-bar">
+        <div className="filter-bar-horizontal">
+          <div className="search-bar">
+            <FaSearch className="search-icon" />
+            <input
+              type="text"
+              placeholder="Search company or role..."
+              value={searchTerm}
+              onChange={e => {
+                setSearchTerm(e.target.value);
+                handleAddFilter('search', e.target.value, `Search: ${e.target.value}`);
+              }}
+              onBlur={e => e.target.value && handleAddFilter('search', e.target.value, `Search: ${e.target.value}`)}
+            />
+          </div>
           <div className="date-range">
             <FaCalendarAlt className="filter-icon" />
             <input
               type="date"
               name="from"
               value={dateRange.from}
-              onChange={handleDateChange}
-              placeholder="From"
+              onChange={e => {
+                setDateRange(prev => ({ ...prev, from: e.target.value }));
+                handleAddFilter('dateFrom', e.target.value, `From: ${e.target.value}`);
+              }}
             />
             <span>to</span>
             <input
               type="date"
               name="to"
               value={dateRange.to}
-              onChange={handleDateChange}
-              placeholder="To"
+              onChange={e => {
+                setDateRange(prev => ({ ...prev, to: e.target.value }));
+                handleAddFilter('dateTo', e.target.value, `To: ${e.target.value}`);
+              }}
             />
           </div>
           <div className="status-filter">
             <FaFilter className="filter-icon" />
-            <select 
-              value={showAll} 
-              onChange={(e) => setShowAll(e.target.value)}
+            <select
+              value={showAll}
+              onChange={e => {
+                setShowAll(e.target.value);
+                if (e.target.value !== 'all') handleAddFilter('status', e.target.value, `Status: ${e.target.options[e.target.selectedIndex].text}`);
+              }}
             >
               <option value="all">All Internships</option>
               <option value="current">Current</option>
               <option value="completed">Completed</option>
             </select>
           </div>
+          <button className="clear-btn modern-action-btn" onClick={handleClearAll}>Clear All</button>
         </div>
+        <TransitionGroup className="active-filters">
+          {activeFilters.map(f => (
+            <CSSTransition key={f.type + f.value} timeout={200} classNames="tag">
+              <span className="filter-tag">
+                {f.label}
+                <FaTrash className="remove-tag" onClick={() => handleRemoveFilter(f.type, f.value)} />
+              </span>
+            </CSSTransition>
+          ))}
+        </TransitionGroup>
       </div>
 
       <div className="internships-container">
@@ -232,7 +321,7 @@ const Internships = () => {
                     <button className="action-btn edit">
                       <FaEdit /> Edit
                     </button>
-                    <button className="action-btn delete">
+                    <button className="action-btn delete" onClick={() => handleDeleteClick(internship)}>
                       <FaTrash /> Delete
                     </button>
                   </div>

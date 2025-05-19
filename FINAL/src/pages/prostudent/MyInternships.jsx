@@ -1,5 +1,10 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import DashboardLayout from '../../components/DashboardLayout';
+import { FaSearch, FaFilter, FaTrash, FaCalendarAlt } from 'react-icons/fa';
+import { CSSTransition, TransitionGroup } from 'react-transition-group';
+import '../../styles/FacultyDashboard.css'; // For modern styles
+import Loader from '../../components/Loader';
+import ConfirmDialog from '../../components/ConfirmDialog';
 
 const dummyInternships = [
   {
@@ -52,40 +57,138 @@ export default function MyInternships() {
   const [search, setSearch] = useState('');
   const [filter, setFilter] = useState('');
   const [modal, setModal] = useState(null);
+  const [activeFilters, setActiveFilters] = useState([]);
+  const [dateRange, setDateRange] = useState(null);
+  const [loading, setLoading] = useState(true);
+  const [confirmOpen, setConfirmOpen] = useState(false);
+  const [confirmTarget, setConfirmTarget] = useState(null);
 
-  const filtered = internships.filter(i =>
-    (i.company.toLowerCase().includes(search.toLowerCase()) ||
-      i.title.toLowerCase().includes(search.toLowerCase())) &&
-    (filter ? i.status === filter : true)
-  );
+  useEffect(() => {
+    // Simulate loading
+    const timer = setTimeout(() => setLoading(false), 900);
+    return () => clearTimeout(timer);
+  }, []);
 
-  const handleWithdraw = id => {
-    setInternships(internships.map(i =>
-      i.id === id ? { ...i, status: 'Withdrawn' } : i
-    ));
-    setModal(null);
+  const handleAddFilter = (type, value, label) => {
+    if (!value || value === '' || value === 'all' || activeFilters.some(f => f.type === type && f.value === value)) return;
+    setActiveFilters([...activeFilters, { type, value, label }]);
+  };
+
+  const handleRemoveFilter = (type, value) => {
+    setActiveFilters(activeFilters.filter(f => !(f.type === type && f.value === value)));
+    if (type === 'status') setFilter('');
+    if (type === 'search') setSearch('');
+  };
+
+  const handleClearAll = () => {
+    setActiveFilters([]);
+    setFilter('');
+    setSearch('');
+  };
+
+  const filtered = internships.filter(i => {
+    let matches = true;
+    activeFilters.forEach(f => {
+      if (f.type === 'search') {
+        matches = matches && (
+          i.company.toLowerCase().includes(f.value.toLowerCase()) ||
+          i.title.toLowerCase().includes(f.value.toLowerCase())
+        );
+      }
+      if (f.type === 'status') {
+        matches = matches && i.status === f.value;
+      }
+    });
+    return matches;
+  });
+
+  const handleWithdrawClick = (internship) => {
+    setConfirmTarget(internship);
+    setConfirmOpen(true);
+  };
+
+  const handleConfirmWithdraw = () => {
+    // Here you would update the internship status in state or API
+    setConfirmOpen(false);
+    setConfirmTarget(null);
+    // Optionally show a toast here
   };
 
   return (
     <DashboardLayout title="My Internships">
+      {loading && <Loader />}
+      <ConfirmDialog
+        open={confirmOpen}
+        title="Withdraw Application"
+        message={`Are you sure you want to withdraw your application for '${confirmTarget?.company}'? This action cannot be undone.`}
+        onConfirm={handleConfirmWithdraw}
+        onCancel={() => setConfirmOpen(false)}
+      />
       <div style={{ maxWidth: 950, margin: '0 auto', background: '#fff', borderRadius: 12, boxShadow: '0 2px 12px #0001', padding: 32 }}>
         <h2 style={{ marginBottom: 16 }}>My Internships</h2>
-        <div style={{ display: 'flex', gap: 16, marginBottom: 20 }}>
-          <input
-            placeholder="Search by company or title..."
-            value={search}
-            onChange={e => setSearch(e.target.value)}
-            className="modern-input"
-            style={{ flex: 1 }}
-          />
-          <select value={filter} onChange={e => setFilter(e.target.value)} className="modern-input">
-            <option value="">All Statuses</option>
-            <option value="Accepted">Accepted</option>
-            <option value="Pending">Pending</option>
-            <option value="Rejected">Rejected</option>
-            <option value="In Progress">In Progress</option>
-            <option value="Withdrawn">Withdrawn</option>
-          </select>
+        <div className="modern-search-section creative-filter-bar">
+          <div className="filter-bar-horizontal">
+            <div className="search-bar">
+              <FaSearch className="search-icon" />
+              <input
+                type="text"
+                placeholder="Search by company or title..."
+                value={search}
+                onChange={e => {
+                  setSearch(e.target.value);
+                  handleAddFilter('search', e.target.value, `Search: ${e.target.value}`);
+                }}
+                onBlur={e => e.target.value && handleAddFilter('search', e.target.value, `Search: ${e.target.value}`)}
+              />
+            </div>
+            <div className="date-range">
+              <FaCalendarAlt className="filter-icon" />
+              <input
+                type="date"
+                name="from"
+                value={dateRange?.from || ''}
+                onChange={e => {
+                  setDateRange(prev => ({ ...prev, from: e.target.value }));
+                  handleAddFilter('dateFrom', e.target.value, `From: ${e.target.value}`);
+                }}
+              />
+              <span>to</span>
+              <input
+                type="date"
+                name="to"
+                value={dateRange?.to || ''}
+                onChange={e => {
+                  setDateRange(prev => ({ ...prev, to: e.target.value }));
+                  handleAddFilter('dateTo', e.target.value, `To: ${e.target.value}`);
+                }}
+              />
+            </div>
+            <div className="status-filter">
+              <FaFilter className="filter-icon" />
+              <select value={filter} onChange={e => {
+                setFilter(e.target.value);
+                if (e.target.value) handleAddFilter('status', e.target.value, `Status: ${e.target.options[e.target.selectedIndex].text}`);
+              }}>
+                <option value="">All Statuses</option>
+                <option value="Accepted">Accepted</option>
+                <option value="Pending">Pending</option>
+                <option value="Rejected">Rejected</option>
+                <option value="In Progress">In Progress</option>
+                <option value="Withdrawn">Withdrawn</option>
+              </select>
+            </div>
+            <button className="clear-btn modern-action-btn" onClick={handleClearAll}>Clear All</button>
+          </div>
+          <TransitionGroup className="active-filters">
+            {activeFilters.map(f => (
+              <CSSTransition key={f.type + f.value} timeout={200} classNames="tag">
+                <span className="filter-tag">
+                  {f.label}
+                  <FaTrash className="remove-tag" onClick={() => handleRemoveFilter(f.type, f.value)} />
+                </span>
+              </CSSTransition>
+            ))}
+          </TransitionGroup>
         </div>
         <table className="modern-table" style={{ width: '100%' }}>
           <thead>
@@ -105,15 +208,17 @@ export default function MyInternships() {
                 <td>{i.company}</td>
                 <td>{i.title}</td>
                 <td>{i.duration}</td>
-                <td><span style={{ color: statusColors[i.status] || '#333', fontWeight: 600 }}>{i.status}</span></td>
+                <td><span className={`status-badge ${i.status.replace(/\s/g, '').toLowerCase()}`}>{i.status}</span></td>
                 <td>
-                  <button className="action-button" onClick={() => setModal(i)}>View Details</button>
-                  {i.status === 'Pending' && (
-                    <button className="action-button" style={{ background: '#eee', color: '#333' }} onClick={() => handleWithdraw(i.id)}>Withdraw</button>
-                  )}
-                  {i.status === 'Accepted' && i.offerUrl && (
-                    <a href={i.offerUrl} download className="action-button" style={{ background: '#3A6351', color: '#fff' }}>Download Offer</a>
-                  )}
+                  <div className="action-buttons">
+                    <button className="action-btn view" onClick={() => setModal(i)}>View Details</button>
+                    {i.status === 'Pending' && (
+                      <button className="action-btn reject" onClick={() => handleWithdrawClick(i)}>Withdraw</button>
+                    )}
+                    {i.status === 'Accepted' && i.offerUrl && (
+                      <a href={i.offerUrl} download className="action-btn download">Download Offer</a>
+                    )}
+                  </div>
                 </td>
               </tr>
             ))}
@@ -128,7 +233,7 @@ export default function MyInternships() {
               <p><strong>Details:</strong> {modal.details}</p>
               <button className="action-button" onClick={() => setModal(null)} style={{ marginTop: 16 }}>Close</button>
               {modal.status === 'Pending' && (
-                <button className="action-button" style={{ background: '#eee', color: '#333', marginLeft: 8 }} onClick={() => handleWithdraw(modal.id)}>Withdraw</button>
+                <button className="action-button" style={{ background: '#eee', color: '#333', marginLeft: 8 }} onClick={() => handleWithdrawClick(modal)}>Withdraw</button>
               )}
             </div>
           </div>

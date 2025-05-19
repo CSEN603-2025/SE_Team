@@ -50,27 +50,27 @@ const actions = [
   {
     icon: <FaFilter />,
     title: 'Filter Reports',
-    onClick: (navigate) => navigate('/filter-reports')
+    onClick: (navigate) => navigate('/view-reports')
   },
   {
     icon: <FaCheck />,
     title: 'Accept Reports',
-    onClick: (navigate) => navigate('/accept-reports')
+    onClick: (navigate) => navigate('/review-reports')
   },
   {
     icon: <FaTimes />,
     title: 'Flag Reports',
-    onClick: (navigate) => navigate('/flag-reports')
+    onClick: (navigate) => navigate('/review-reports')
   },
   {
     icon: <FaComments />,
     title: 'Submit Comments',
-    onClick: (navigate) => navigate('/submit-comments')
+    onClick: (navigate) => navigate('/review-reports')
   },
   {
     icon: <FaSearch />,
     title: 'Search Reports',
-    onClick: (navigate) => navigate('/search-reports')
+    onClick: (navigate) => navigate('/view-reports')
   }
 ];
 
