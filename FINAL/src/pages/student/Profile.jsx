@@ -1,4 +1,6 @@
 import React from 'react';
+import DashboardLayout from '../../components/DashboardLayout';
+import { FaUser, FaStar, FaHeart } from 'react-icons/fa';
 import { useNavigate } from 'react-router-dom';
 
 const Profile = () => {
@@ -11,32 +13,38 @@ const Profile = () => {
   }
 
   return (
-    <div>
-      <h1>Student Profile</h1>
-      <div>
-        <h2>Personal Information</h2>
-        <p>Name: {user.name}</p>
-        <p>Email: {user.email}</p>
-        <p>Major: {user.major}</p>
-        <p>Semester: {user.semester}</p>
+    <DashboardLayout title="Student Profile">
+      <div className="profile-card">
+        <div className="profile-header">
+          <FaUser size={40} style={{ marginRight: 16, color: '#4F8A8B' }} />
+          <div>
+            <h2 style={{ margin: 0 }}>{user.name}</h2>
+            <p style={{ margin: 0, color: '#888' }}>{user.email}</p>
+          </div>
+        </div>
+        <div className="profile-section">
+          <h3>Personal Information</h3>
+          <p><strong>Major:</strong> {user.major}</p>
+          <p><strong>Semester:</strong> {user.semester}</p>
+        </div>
+        <div className="profile-section">
+          <h3><FaStar style={{ color: '#F9B208', marginRight: 6 }} /> Skills</h3>
+          <ul>
+            {user.skills?.map((skill, index) => (
+              <li key={index}>{skill}</li>
+            ))}
+          </ul>
+        </div>
+        <div className="profile-section">
+          <h3><FaHeart style={{ color: '#F76E11', marginRight: 6 }} /> Interests</h3>
+          <ul>
+            {user.interests?.map((interest, index) => (
+              <li key={index}>{interest}</li>
+            ))}
+          </ul>
+        </div>
       </div>
-      <div>
-        <h2>Skills</h2>
-        <ul>
-          {user.skills?.map((skill, index) => (
-            <li key={index}>{skill}</li>
-          ))}
-        </ul>
-      </div>
-      <div>
-        <h2>Interests</h2>
-        <ul>
-          {user.interests?.map((interest, index) => (
-            <li key={index}>{interest}</li>
-          ))}
-        </ul>
-      </div>
-    </div>
+    </DashboardLayout>
   );
 };
 

@@ -1,4 +1,6 @@
 import React from 'react';
+import DashboardLayout from '../../components/DashboardLayout';
+import { FaBook } from 'react-icons/fa';
 
 const Courses = () => {
   const dummyCourses = [
@@ -8,23 +10,30 @@ const Courses = () => {
   ];
 
   return (
-    <div className="win98-container">
-      <div className="title-bar">
-        <div className="title-bar-text">My Courses</div>
+    <DashboardLayout title="My Courses">
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24 }}>
+        <FaBook size={28} style={{ marginRight: 12, color: '#4F8A8B' }} />
+        <h2 style={{ margin: 0 }}>My Courses</h2>
       </div>
-      
-      <div className="window-body">
-        <div className="courses-list">
+      <table className="modern-table">
+        <thead>
+          <tr>
+            <th>Course Code</th>
+            <th>Name</th>
+            <th>Credits</th>
+          </tr>
+        </thead>
+        <tbody>
           {dummyCourses.map(course => (
-            <div key={course.id} className="course-card">
-              <h3>{course.name}</h3>
-              <p><strong>Course Code:</strong> {course.code}</p>
-              <p><strong>Credits:</strong> {course.credits}</p>
-            </div>
+            <tr key={course.id}>
+              <td>{course.code}</td>
+              <td>{course.name}</td>
+              <td>{course.credits}</td>
+            </tr>
           ))}
-        </div>
-      </div>
-    </div>
+        </tbody>
+      </table>
+    </DashboardLayout>
   );
 };
 

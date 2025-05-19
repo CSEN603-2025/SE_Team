@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import DashboardLayout from '../../components/DashboardLayout';
+import { FaComments } from 'react-icons/fa';
 
 const Feedback = () => {
   const [feedback, setFeedback] = useState({
@@ -23,12 +25,12 @@ const Feedback = () => {
   };
 
   return (
-    <div className="win98-container">
-      <div className="title-bar">
-        <div className="title-bar-text">Submit Feedback</div>
-      </div>
-      
-      <div className="window-body">
+    <DashboardLayout title="Submit Feedback">
+      <div className="form-card">
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24 }}>
+          <FaComments size={28} style={{ marginRight: 12, color: '#4F8A8B' }} />
+          <h2 style={{ margin: 0 }}>Submit Feedback</h2>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="category">Category:</label>
@@ -83,10 +85,10 @@ const Feedback = () => {
             </div>
           </div>
 
-          <button type="submit">Submit Feedback</button>
+          <button type="submit" className="primary-btn">Submit Feedback</button>
         </form>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 

@@ -1,4 +1,6 @@
 import React from 'react';
+import DashboardLayout from '../../components/DashboardLayout';
+import { FaBuilding } from 'react-icons/fa';
 
 const Companies = () => {
   const dummyCompanies = [
@@ -19,24 +21,32 @@ const Companies = () => {
   ];
 
   return (
-    <div className="win98-container">
-      <div className="title-bar">
-        <div className="title-bar-text">Partner Companies</div>
+    <DashboardLayout title="Partner Companies">
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24 }}>
+        <FaBuilding size={28} style={{ marginRight: 12, color: '#4F8A8B' }} />
+        <h2 style={{ margin: 0 }}>Partner Companies</h2>
       </div>
-      
-      <div className="window-body">
-        <div className="companies-list">
+      <table className="modern-table">
+        <thead>
+          <tr>
+            <th>Name</th>
+            <th>Industry</th>
+            <th>Location</th>
+            <th>Open Positions</th>
+          </tr>
+        </thead>
+        <tbody>
           {dummyCompanies.map(company => (
-            <div key={company.id} className="company-card">
-              <h3>{company.name}</h3>
-              <p><strong>Industry:</strong> {company.industry}</p>
-              <p><strong>Location:</strong> {company.location}</p>
-              <p><strong>Open Positions:</strong> {company.openPositions}</p>
-            </div>
+            <tr key={company.id}>
+              <td>{company.name}</td>
+              <td>{company.industry}</td>
+              <td>{company.location}</td>
+              <td>{company.openPositions}</td>
+            </tr>
           ))}
-        </div>
-      </div>
-    </div>
+        </tbody>
+      </table>
+    </DashboardLayout>
   );
 };
 

@@ -53,10 +53,13 @@ const Sidebar = () => {
         return [
           { path: '/scad-dashboard', icon: <FaHome />, label: 'Dashboard' },
           { path: '/manage-students', icon: <FaUsers />, label: 'Manage Students' },
-          { path: '/partner-companies', icon: <FaBriefcase />, label: 'Companies' },
-          { path: '/faculty-management', icon: <FaGraduationCap />, label: 'Faculty' },
-          { path: '/analytics', icon: <FaChartBar />, label: 'Analytics' },
-          { path: '/settings', icon: <FaCog />, label: 'Settings' }
+          { path: '/partner-companies', icon: <FaBriefcase />, label: 'Partner Companies' },
+          { path: '/internship-programs', icon: <FaClipboardCheck />, label: 'Internship Programs' },
+          { path: '/faculty-management', icon: <FaGraduationCap />, label: 'Faculty Management' },
+          { path: '/analytics', icon: <FaChartBar />, label: 'Analytics & Reports' },
+          { path: '/templates', icon: <FaFileAlt />, label: 'Document Templates' },
+          { path: '/settings', icon: <FaCog />, label: 'System Settings' },
+          { path: '/advanced-search', icon: <FaSearch />, label: 'Advanced Search' }
         ];
 
       default:

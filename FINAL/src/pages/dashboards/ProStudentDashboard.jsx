@@ -1,9 +1,118 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaGraduationCap, FaBriefcase, FaFileAlt, FaChartLine, 
-         FaCalendarAlt, FaUsers, FaCertificate, FaCog } from 'react-icons/fa';
+import { FaGraduationCap, FaBriefcase, FaFileAlt, FaChartLine, FaCalendarAlt, FaUsers, FaCertificate, FaCog } from 'react-icons/fa';
 import DashboardLayout from '../../components/DashboardLayout';
 import '../../styles/DashboardLayout.css';
+
+const statCards = [
+  {
+    key: 'completedInternships',
+    label: 'Completed Internships',
+    icon: <FaGraduationCap size={28} color="#4F8A8B" />,
+    color: '#E8F6EF'
+  },
+  {
+    key: 'ongoingProjects',
+    label: 'Ongoing Projects',
+    icon: <FaBriefcase size={28} color="#F9B208" />,
+    color: '#FFF9E5'
+  },
+  {
+    key: 'certifications',
+    label: 'Certifications',
+    icon: <FaCertificate size={28} color="#3A6351" />,
+    color: '#E4EFE7'
+  },
+  {
+    key: 'networkConnections',
+    label: 'Network Connections',
+    icon: <FaUsers size={28} color="#F76E11" />,
+    color: '#FFF3E0'
+  }
+];
+
+const actions = [
+  {
+    icon: <FaGraduationCap />,
+    title: 'Academic Progress',
+    onClick: (navigate) => navigate('/academic-progress')
+  },
+  {
+    icon: <FaBriefcase />,
+    title: 'Professional Projects',
+    onClick: (navigate) => navigate('/prostudent/projects')
+  },
+  {
+    icon: <FaFileAlt />,
+    title: 'Portfolio',
+    onClick: (navigate) => navigate('/prostudent/portfolio')
+  },
+  {
+    icon: <FaChartLine />,
+    title: 'Skills Development',
+    onClick: (navigate) => navigate('/prostudent/skills')
+  },
+  {
+    icon: <FaCalendarAlt />,
+    title: 'Schedule',
+    onClick: (navigate) => navigate('/prostudent/schedule')
+  },
+  {
+    icon: <FaUsers />,
+    title: 'Professional Network',
+    onClick: (navigate) => navigate('/prostudent/network')
+  },
+  {
+    icon: <FaCertificate />,
+    title: 'Certifications',
+    onClick: (navigate) => navigate('/prostudent/certifications')
+  },
+  {
+    icon: <FaFileAlt />,
+    title: 'My Internships',
+    onClick: (navigate) => navigate('/prostudent/myinternships')
+  },
+  {
+    icon: <FaFileAlt />,
+    title: 'Internship Reports',
+    onClick: (navigate) => navigate('/prostudent/reports')
+  },
+  {
+    icon: <FaFileAlt />,
+    title: 'Company Evaluation',
+    onClick: (navigate) => navigate('/prostudent/companyevaluation')
+  },
+  {
+    icon: <FaFileAlt />,
+    title: 'Notifications',
+    onClick: (navigate) => navigate('/prostudent/notifications')
+  },
+  {
+    icon: <FaFileAlt />,
+    title: 'Online Assessments',
+    onClick: (navigate) => navigate('/prostudent/onlineassessments')
+  },
+  {
+    icon: <FaFileAlt />,
+    title: 'Workshops',
+    onClick: (navigate) => navigate('/prostudent/workshops')
+  },
+  {
+    icon: <FaFileAlt />,
+    title: 'Appointments & Video Calls',
+    onClick: (navigate) => navigate('/prostudent/appointments')
+  },
+  {
+    icon: <FaCog />,
+    title: 'Settings',
+    onClick: (navigate) => navigate('/prostudent/settings')
+  },
+  {
+    icon: <FaFileAlt />,
+    title: 'Profile',
+    onClick: (navigate) => navigate('/prostudent/profile')
+  },
+];
 
 const ProStudentDashboard = () => {
   const navigate = useNavigate();
@@ -14,77 +123,32 @@ const ProStudentDashboard = () => {
     networkConnections: 150
   });
 
-  const actions = [
-    {
-      icon: <FaGraduationCap />,
-      title: "Academic Progress",
-      onClick: () => navigate('/academic-progress')
-    },
-    {
-      icon: <FaBriefcase />,
-      title: "Professional Projects",
-      onClick: () => navigate('/projects')
-    },
-    {
-      icon: <FaFileAlt />,
-      title: "Portfolio",
-      onClick: () => navigate('/portfolio')
-    },
-    {
-      icon: <FaChartLine />,
-      title: "Skills Development",
-      onClick: () => navigate('/skills')
-    },
-    {
-      icon: <FaCalendarAlt />,
-      title: "Schedule",
-      onClick: () => navigate('/schedule')
-    },
-    {
-      icon: <FaUsers />,
-      title: "Professional Network",
-      onClick: () => navigate('/network')
-    },
-    {
-      icon: <FaCertificate />,
-      title: "Certifications",
-      onClick: () => navigate('/certifications')
-    },
-    {
-      icon: <FaCog />,
-      title: "Settings",
-      onClick: () => navigate('/settings')
-    }
-  ];
-
   return (
-    <DashboardLayout title="Professional Student Dashboard">
+    <DashboardLayout title="Pro Student Dashboard">
       <div className="stats-grid">
-        <div className="stat-card">
-          <h3>Completed Internships</h3>
-          <p>{stats.completedInternships}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Ongoing Projects</h3>
-          <p>{stats.ongoingProjects}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Certifications</h3>
-          <p>{stats.certifications}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Network Connections</h3>
-          <p>{stats.networkConnections}</p>
-        </div>
+        {statCards.map(card => (
+          <div
+            key={card.key}
+            className="stat-card"
+            tabIndex={0}
+            style={{ transition: 'transform 0.15s', cursor: 'pointer' }}
+            onMouseOver={e => (e.currentTarget.style.transform = 'scale(1.04)')}
+            onMouseOut={e => (e.currentTarget.style.transform = 'scale(1)')}
+          >
+            <div className="stat-icon">{card.icon}</div>
+            <div className="stat-label">{card.label}</div>
+            <div className="stat-value">{stats[card.key]}</div>
+          </div>
+        ))}
       </div>
 
       <h2 className="section-title">Quick Actions</h2>
       <div className="action-grid">
         {actions.map((action, index) => (
-          <button 
+          <button
             key={index}
             className="action-button"
-            onClick={action.onClick}
+            onClick={() => action.onClick(navigate)}
           >
             <span className="action-icon">{action.icon}</span>
             {action.title}

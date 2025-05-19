@@ -1,0 +1,58 @@
+.error-boundary {
+  padding: var(--spacing-xl);
+  margin: var(--spacing-xl) auto;
+  max-width: 600px;
+  text-align: center;
+  background-color: var(--surface);
+  border-radius: var(--border-radius-lg);
+  box-shadow: var(--shadow-lg);
+  border: 1px solid var(--border-color);
+}
+
+.error-boundary h2 {
+  color: var(--error-color);
+  font-size: var(--font-size-xl);
+  margin-bottom: var(--spacing-md);
+}
+
+.error-boundary p {
+  color: var(--text-secondary);
+  margin-bottom: var(--spacing-lg);
+}
+
+.retry-button {
+  background-color: var(--primary);
+  color: var(--text-light);
+  padding: var(--spacing-sm) var(--spacing-lg);
+  border: none;
+  border-radius: var(--border-radius-md);
+  font-size: var(--font-size-md);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.retry-button:hover {
+  background-color: var(--secondary);
+}
+
+.error-details {
+  margin-top: var(--spacing-xl);
+  text-align: left;
+}
+
+.error-details summary {
+  color: var(--text-secondary);
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  user-select: none;
+}
+
+.error-details pre {
+  background-color: var(--background);
+  padding: var(--spacing-md);
+  border-radius: var(--border-radius-sm);
+  overflow-x: auto;
+  color: var(--error-color);
+  font-size: var(--font-size-sm);
+  margin-top: var(--spacing-sm);
+} 

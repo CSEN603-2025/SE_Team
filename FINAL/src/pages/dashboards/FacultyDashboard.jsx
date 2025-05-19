@@ -4,6 +4,76 @@ import { FaFileAlt, FaUserGraduate, FaClipboardCheck, FaFilter, FaCheck, FaTimes
 import DashboardLayout from '../../components/DashboardLayout';
 import '../../styles/DashboardLayout.css';
 
+const statCards = [
+  {
+    key: 'pendingReports',
+    label: 'Pending Reports',
+    icon: <FaClipboardCheck size={28} color="#F76E11" />,
+    color: '#FFF3E0'
+  },
+  {
+    key: 'reviewedReports',
+    label: 'Reviewed Reports',
+    icon: <FaFileAlt size={28} color="#4F8A8B" />,
+    color: '#E8F6EF'
+  },
+  {
+    key: 'totalStudents',
+    label: 'Total Students',
+    icon: <FaUserGraduate size={28} color="#3A6351" />,
+    color: '#E4EFE7'
+  },
+  {
+    key: 'activeInternships',
+    label: 'Active Internships',
+    icon: <FaChartBar size={28} color="#F9B208" />,
+    color: '#FFF9E5'
+  }
+];
+
+const actions = [
+  {
+    icon: <FaFileAlt />,
+    title: 'View Reports',
+    onClick: (navigate) => navigate('/view-reports')
+  },
+  {
+    icon: <FaUserGraduate />,
+    title: 'Student List',
+    onClick: (navigate) => navigate('/student-list')
+  },
+  {
+    icon: <FaClipboardCheck />,
+    title: 'Review Reports',
+    onClick: (navigate) => navigate('/review-reports')
+  },
+  {
+    icon: <FaFilter />,
+    title: 'Filter Reports',
+    onClick: (navigate) => navigate('/filter-reports')
+  },
+  {
+    icon: <FaCheck />,
+    title: 'Accept Reports',
+    onClick: (navigate) => navigate('/accept-reports')
+  },
+  {
+    icon: <FaTimes />,
+    title: 'Flag Reports',
+    onClick: (navigate) => navigate('/flag-reports')
+  },
+  {
+    icon: <FaComments />,
+    title: 'Submit Comments',
+    onClick: (navigate) => navigate('/submit-comments')
+  },
+  {
+    icon: <FaSearch />,
+    title: 'Search Reports',
+    onClick: (navigate) => navigate('/search-reports')
+  }
+];
+
 const FacultyDashboard = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(() => {
@@ -23,95 +93,33 @@ const FacultyDashboard = () => {
       navigate('/');
       return;
     }
-
-    // In a real app, this would fetch from an API
-    setStats({
-      pendingReports: 15,
-      reviewedReports: 45,
-      totalStudents: 120,
-      activeInternships: 35
-    });
   }, [user, navigate]);
-
-  const actions = [
-    {
-      icon: <FaFileAlt />,
-      title: "View Reports",
-      onClick: () => navigate('/view-reports')
-    },
-    {
-      icon: <FaUserGraduate />,
-      title: "Student List",
-      onClick: () => navigate('/student-list')
-    },
-    {
-      icon: <FaClipboardCheck />,
-      title: "Review Reports",
-      onClick: () => navigate('/review-reports')
-    },
-    {
-      icon: <FaFilter />,
-      title: "Filter Reports",
-      onClick: () => navigate('/filter-reports')
-    },
-    {
-      icon: <FaCheck />,
-      title: "Accept Reports",
-      onClick: () => navigate('/accept-reports')
-    },
-    {
-      icon: <FaTimes />,
-      title: "Flag Reports",
-      onClick: () => navigate('/flag-reports')
-    },
-    {
-      icon: <FaComments />,
-      title: "Submit Comments",
-      onClick: () => navigate('/submit-comments')
-    },
-    {
-      icon: <FaSearch />,
-      title: "Search Reports",
-      onClick: () => navigate('/search-reports')
-    }
-  ];
-
-  const handleLogout = () => {
-    localStorage.removeItem('user');
-    localStorage.removeItem('isAuthenticated');
-    navigate('/');
-  };
 
   if (!user) return null;
 
   return (
     <DashboardLayout title="Faculty Dashboard">
       <div className="stats-grid">
-        <div className="stat-card">
-          <h3>Pending Reports</h3>
-          <p>{stats.pendingReports}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Reviewed Reports</h3>
-          <p>{stats.reviewedReports}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Total Students</h3>
-          <p>{stats.totalStudents}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Active Internships</h3>
-          <p>{stats.activeInternships}</p>
-        </div>
+        {statCards.map(card => (
+          <div
+            key={card.key}
+            className="stat-card"
+            tabIndex={0}
+          >
+            <div className="stat-icon">{card.icon}</div>
+            <div className="stat-label">{card.label}</div>
+            <div className="stat-value">{stats[card.key]}</div>
+          </div>
+        ))}
       </div>
 
       <h2 className="section-title">Quick Actions</h2>
       <div className="action-grid">
         {actions.map((action, index) => (
-          <button 
+          <button
             key={index}
             className="action-button"
-            onClick={action.onClick}
+            onClick={() => action.onClick(navigate)}
           >
             <span className="action-icon">{action.icon}</span>
             {action.title}

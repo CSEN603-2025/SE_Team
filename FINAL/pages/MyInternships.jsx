@@ -54,43 +54,69 @@ const MyInternships = () => {
       <h1>My Internships</h1>
 
       {/* Search and Filter Section */}
-      <div className="filters-section">
-        <div className="search-group">
-          <label>Search:</label>
-          <input
-            type="text"
-            placeholder="Company or role"
-            value={searchTerm}
-            onChange={(e) => setSearchTerm(e.target.value)}
-          />
+      <div className="filters-section modern-card">
+        <div style={{ display: 'flex', alignItems: 'center', gap: 16, marginBottom: 16 }}>
+          <span style={{ fontWeight: 600, fontSize: 18, color: '#2c3e50', display: 'flex', alignItems: 'center', gap: 8 }}>
+            <i className="fas fa-filter" style={{ color: '#00b894' }}></i> Filter Internships
+          </span>
         </div>
-
-        <div className="filter-group">
-          <label>Show:</label>
-          <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
-            <option value="all">All</option>
-            <option value="current">Current Intern</option>
-            <option value="completed">Internship Complete</option>
-          </select>
-        </div>
-
-        <div className="date-group">
-          <div className="date-input">
-            <label>From:</label>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 24 }}>
+          <div className="search-group" style={{ flex: 1, minWidth: 220 }}>
+            <label><i className="fas fa-search" style={{ marginRight: 6, color: '#4F8A8B' }}></i>Search</label>
             <input
-              type="date"
-              value={startDate}
-              onChange={(e) => setStartDate(e.target.value)}
+              type="text"
+              placeholder="Company or role"
+              value={searchTerm}
+              onChange={(e) => setSearchTerm(e.target.value)}
             />
           </div>
-          <div className="date-input">
-            <label>To:</label>
-            <input
-              type="date"
-              value={endDate}
-              onChange={(e) => setEndDate(e.target.value)}
-            />
+          <div className="filter-group" style={{ flex: 1, minWidth: 180 }}>
+            <label><i className="fas fa-list" style={{ marginRight: 6, color: '#F9B208' }}></i>Status</label>
+            <select value={statusFilter} onChange={(e) => setStatusFilter(e.target.value)}>
+              <option value="all">All</option>
+              <option value="current">Current Intern</option>
+              <option value="completed">Internship Complete</option>
+            </select>
           </div>
+          <div className="date-group" style={{ flex: 2, minWidth: 260, display: 'flex', gap: 12 }}>
+            <div className="date-input">
+              <label><i className="fas fa-calendar-alt" style={{ marginRight: 6, color: '#1976D2' }}></i>From</label>
+              <input
+                type="date"
+                value={startDate}
+                onChange={(e) => setStartDate(e.target.value)}
+              />
+            </div>
+            <div className="date-input">
+              <label><i className="fas fa-calendar-check" style={{ marginRight: 6, color: '#1976D2' }}></i>To</label>
+              <input
+                type="date"
+                value={endDate}
+                onChange={(e) => setEndDate(e.target.value)}
+              />
+            </div>
+          </div>
+        </div>
+        <div style={{ display: 'flex', gap: 12, marginTop: 24, justifyContent: 'flex-end' }}>
+          <button
+            className="btn small"
+            style={{ background: '#e9ecef', color: '#495057', border: 'none' }}
+            onClick={() => {
+              setSearchTerm('');
+              setStatusFilter('all');
+              setStartDate('');
+              setEndDate('');
+            }}
+          >
+            <i className="fas fa-undo" style={{ marginRight: 6 }}></i>Reset
+          </button>
+          <button
+            className="btn small"
+            style={{ background: '#00b894', color: 'white', border: 'none' }}
+            onClick={() => {}}
+          >
+            <i className="fas fa-check" style={{ marginRight: 6 }}></i>Apply
+          </button>
         </div>
       </div>
 

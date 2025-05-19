@@ -1,5 +1,8 @@
 import React, { useState } from 'react';
 import { internships } from '../../data/dummyData';
+import DashboardLayout from '../../components/DashboardLayout';
+import { FaSearch, FaBuilding, FaClock, FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
+import '../../styles/Internships.css';
 
 const ExploreInternships = () => {
   const [filters, setFilters] = useState({
@@ -26,23 +29,19 @@ const ExploreInternships = () => {
   });
 
   return (
-    <div className="win98-container">
-      <div className="title-bar">
-        <div className="title-bar-text">Explore Internships</div>
-      </div>
-      
-      <div className="window-body">
-        <div className="filters">
-          <div className="filter-group">
-            <input
-              type="text"
-              name="search"
-              placeholder="Search internships..."
-              value={filters.search}
-              onChange={handleFilterChange}
-            />
-          </div>
-
+    <DashboardLayout title="Explore Internships">
+      <div className="modern-search-section">
+        <div className="search-bar">
+          <FaSearch className="search-icon" />
+          <input
+            type="text"
+            name="search"
+            placeholder="Search internships..."
+            value={filters.search}
+            onChange={handleFilterChange}
+          />
+        </div>
+        <div className="filter-bar">
           <div className="filter-group">
             <label htmlFor="duration">Duration:</label>
             <select
@@ -56,7 +55,6 @@ const ExploreInternships = () => {
               <option value="6">6 months</option>
             </select>
           </div>
-
           <div className="filter-group">
             <label htmlFor="status">Status:</label>
             <select
@@ -71,14 +69,25 @@ const ExploreInternships = () => {
             </select>
           </div>
         </div>
-
-        <div className="internships-grid">
-          {filteredInternships.map(internship => (
-            <div key={internship.id} className="internship-card">
-              <h3>{internship.position}</h3>
+      </div>
+      <div className="internships-grid-modern">
+        {filteredInternships.length === 0 ? (
+          <div className="empty-state">No internships found.</div>
+        ) : (
+          filteredInternships.map(internship => (
+            <div key={internship.id} className="internship-card-modern">
+              <h3 style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                <FaBuilding style={{ color: '#4F8A8B' }} /> {internship.position}
+              </h3>
               <p><strong>Company:</strong> {internship.company}</p>
-              <p><strong>Duration:</strong> {internship.duration}</p>
-              <p><strong>Status:</strong> {internship.status}</p>
+              <p><FaClock style={{ color: '#F9B208', marginRight: 4 }} /><strong> Duration:</strong> {internship.duration}</p>
+              <p>
+                <strong>Status:</strong> {internship.status === 'Open' ? (
+                  <span className="status-badge current"><FaCheckCircle style={{ color: '#4F8A8B' }} /> Open</span>
+                ) : (
+                  <span className="status-badge completed"><FaTimesCircle style={{ color: '#F76E11' }} /> Closed</span>
+                )}
+              </p>
               <div className="requirements">
                 <strong>Requirements:</strong>
                 <ul>
@@ -89,16 +98,16 @@ const ExploreInternships = () => {
               </div>
               <p>{internship.description}</p>
               <button
-                className="apply-button"
+                className="apply-button-modern"
                 disabled={internship.status !== 'Open'}
               >
                 {internship.status === 'Open' ? 'Apply Now' : 'Closed'}
               </button>
             </div>
-          ))}
-        </div>
+          ))
+        )}
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 

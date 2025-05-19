@@ -1,9 +1,78 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaBriefcase, FaUsers, FaFileAlt, FaChartLine, 
-         FaUserGraduate, FaClipboardCheck, FaCog, FaSearch } from 'react-icons/fa';
+import { FaBriefcase, FaUsers, FaFileAlt, FaChartLine, FaUserGraduate, FaClipboardCheck, FaCog, FaSearch } from 'react-icons/fa';
 import DashboardLayout from '../../components/DashboardLayout';
 import '../../styles/DashboardLayout.css';
+
+const statCards = [
+  {
+    key: 'activeInternships',
+    label: 'Active Internships',
+    icon: <FaBriefcase size={28} color="#4F8A8B" />,
+    color: '#E8F6EF'
+  },
+  {
+    key: 'totalApplications',
+    label: 'Total Applications',
+    icon: <FaUsers size={28} color="#F9B208" />,
+    color: '#FFF9E5'
+  },
+  {
+    key: 'currentInterns',
+    label: 'Current Interns',
+    icon: <FaUserGraduate size={28} color="#3A6351" />,
+    color: '#E4EFE7'
+  },
+  {
+    key: 'completedInternships',
+    label: 'Completed Internships',
+    icon: <FaClipboardCheck size={28} color="#F76E11" />,
+    color: '#FFF3E0'
+  }
+];
+
+const actions = [
+  {
+    icon: <FaBriefcase />,
+    title: 'Post Internship',
+    onClick: (navigate) => navigate('/post-internship')
+  },
+  {
+    icon: <FaUsers />,
+    title: 'Manage Applications',
+    onClick: (navigate) => navigate('/manage-applications')
+  },
+  {
+    icon: <FaFileAlt />,
+    title: 'Internship Reports',
+    onClick: (navigate) => navigate('/internship-reports')
+  },
+  {
+    icon: <FaChartLine />,
+    title: 'Performance Analytics',
+    onClick: (navigate) => navigate('/performance')
+  },
+  {
+    icon: <FaUserGraduate />,
+    title: 'Current Interns',
+    onClick: (navigate) => navigate('/current-interns')
+  },
+  {
+    icon: <FaClipboardCheck />,
+    title: 'Evaluations',
+    onClick: (navigate) => navigate('/evaluations')
+  },
+  {
+    icon: <FaCog />,
+    title: 'Company Profile',
+    onClick: (navigate) => navigate('/company-profile')
+  },
+  {
+    icon: <FaSearch />,
+    title: 'Search Students',
+    onClick: (navigate) => navigate('/search-students')
+  }
+];
 
 const CompanyDashboard = () => {
   const navigate = useNavigate();
@@ -14,77 +83,29 @@ const CompanyDashboard = () => {
     completedInternships: 24
   });
 
-  const actions = [
-    {
-      icon: <FaBriefcase />,
-      title: "Post Internship",
-      onClick: () => navigate('/post-internship')
-    },
-    {
-      icon: <FaUsers />,
-      title: "Manage Applications",
-      onClick: () => navigate('/manage-applications')
-    },
-    {
-      icon: <FaFileAlt />,
-      title: "Internship Reports",
-      onClick: () => navigate('/internship-reports')
-    },
-    {
-      icon: <FaChartLine />,
-      title: "Performance Analytics",
-      onClick: () => navigate('/performance')
-    },
-    {
-      icon: <FaUserGraduate />,
-      title: "Current Interns",
-      onClick: () => navigate('/current-interns')
-    },
-    {
-      icon: <FaClipboardCheck />,
-      title: "Evaluations",
-      onClick: () => navigate('/evaluations')
-    },
-    {
-      icon: <FaCog />,
-      title: "Company Profile",
-      onClick: () => navigate('/company-profile')
-    },
-    {
-      icon: <FaSearch />,
-      title: "Search Students",
-      onClick: () => navigate('/search-students')
-    }
-  ];
-
   return (
     <DashboardLayout title="Company Dashboard">
       <div className="stats-grid">
-        <div className="stat-card">
-          <h3>Active Internships</h3>
-          <p>{stats.activeInternships}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Total Applications</h3>
-          <p>{stats.totalApplications}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Current Interns</h3>
-          <p>{stats.currentInterns}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Completed Internships</h3>
-          <p>{stats.completedInternships}</p>
-        </div>
+        {statCards.map(card => (
+          <div
+            key={card.key}
+            className="stat-card"
+            tabIndex={0}
+          >
+            <div className="stat-icon">{card.icon}</div>
+            <div className="stat-label">{card.label}</div>
+            <div className="stat-value">{stats[card.key]}</div>
+          </div>
+        ))}
       </div>
 
       <h2 className="section-title">Quick Actions</h2>
       <div className="action-grid">
         {actions.map((action, index) => (
-          <button 
+          <button
             key={index}
             className="action-button"
-            onClick={action.onClick}
+            onClick={() => action.onClick(navigate)}
           >
             <span className="action-icon">{action.icon}</span>
             {action.title}

@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import DashboardLayout from '../../components/DashboardLayout';
+import { FaClipboardCheck } from 'react-icons/fa';
 
 const Evaluation = () => {
   const [evaluation, setEvaluation] = useState({
@@ -27,12 +29,12 @@ const Evaluation = () => {
   };
 
   return (
-    <div className="win98-container">
-      <div className="title-bar">
-        <div className="title-bar-text">Internship Evaluation</div>
-      </div>
-      
-      <div className="window-body">
+    <DashboardLayout title="Internship Evaluation">
+      <div className="form-card">
+        <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24 }}>
+          <FaClipboardCheck size={28} style={{ marginRight: 12, color: '#F76E11' }} />
+          <h2 style={{ margin: 0 }}>Internship Evaluation</h2>
+        </div>
         <form onSubmit={handleSubmit}>
           <div className="form-group">
             <label htmlFor="companyName">Company Name:</label>
@@ -69,7 +71,6 @@ const Evaluation = () => {
 
           <div className="ratings">
             <h3>Performance Ratings (1-10)</h3>
-            
             <div className="rating-group">
               <label htmlFor="technicalSkills">Technical Skills:</label>
               <input
@@ -83,7 +84,6 @@ const Evaluation = () => {
               />
               <span>{evaluation.technicalSkills}</span>
             </div>
-
             <div className="rating-group">
               <label htmlFor="communication">Communication:</label>
               <input
@@ -97,7 +97,6 @@ const Evaluation = () => {
               />
               <span>{evaluation.communication}</span>
             </div>
-
             <div className="rating-group">
               <label htmlFor="teamwork">Teamwork:</label>
               <input
@@ -111,7 +110,6 @@ const Evaluation = () => {
               />
               <span>{evaluation.teamwork}</span>
             </div>
-
             <div className="rating-group">
               <label htmlFor="punctuality">Punctuality:</label>
               <input
@@ -137,10 +135,10 @@ const Evaluation = () => {
             />
           </div>
 
-          <button type="submit">Submit Evaluation</button>
+          <button type="submit" className="primary-btn">Submit Evaluation</button>
         </form>
       </div>
-    </div>
+    </DashboardLayout>
   );
 };
 

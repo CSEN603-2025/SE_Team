@@ -1,9 +1,36 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { FaUserGraduate, FaBuilding, FaClipboardList, FaChartBar, 
-         FaUserTie, FaFileAlt, FaCog, FaSearch } from 'react-icons/fa';
+         FaUserTie, FaFileAlt, FaCog, FaSearch, FaUsers, FaCheckCircle } from 'react-icons/fa';
 import DashboardLayout from '../../components/DashboardLayout';
 import '../../styles/DashboardLayout.css';
+
+const statCards = [
+  {
+    key: 'totalStudents',
+    label: 'Total Students',
+    icon: <FaUserGraduate size={32} color="#4F8A8B" />,
+    color: '#E8F6EF'
+  },
+  {
+    key: 'activeInternships',
+    label: 'Active Internships',
+    icon: <FaClipboardList size={32} color="#F9B208" />,
+    color: '#FFF9E5'
+  },
+  {
+    key: 'partnerCompanies',
+    label: 'Partner Companies',
+    icon: <FaBuilding size={32} color="#3A6351" />,
+    color: '#E4EFE7'
+  },
+  {
+    key: 'pendingApprovals',
+    label: 'Pending Approvals',
+    icon: <FaCheckCircle size={32} color="#F76E11" />,
+    color: '#FFF3E0'
+  }
+];
 
 const ScadDashboard = () => {
   const navigate = useNavigate();
@@ -59,23 +86,31 @@ const ScadDashboard = () => {
 
   return (
     <DashboardLayout title="SCAD Dashboard">
-      <div className="stats-grid">
-        <div className="stat-card">
-          <h3>Total Students</h3>
-          <p>{stats.totalStudents}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Active Internships</h3>
-          <p>{stats.activeInternships}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Partner Companies</h3>
-          <p>{stats.partnerCompanies}</p>
-        </div>
-        <div className="stat-card">
-          <h3>Pending Approvals</h3>
-          <p>{stats.pendingApprovals}</p>
-        </div>
+      <div className="stats-grid" style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(220px, 1fr))', gap: 24, margin: '32px 0' }}>
+        {statCards.map(card => (
+          <div
+            key={card.key}
+            style={{
+              background: card.color,
+              borderRadius: 16,
+              boxShadow: '0 2px 12px rgba(0,0,0,0.06)',
+              padding: '2rem 1.5rem',
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              justifyContent: 'center',
+              minHeight: 140,
+              transition: 'transform 0.15s',
+              cursor: 'pointer',
+            }}
+            className="stat-card-upgraded"
+            tabIndex={0}
+          >
+            <div style={{ marginBottom: 12 }}>{card.icon}</div>
+            <div style={{ fontWeight: 600, color: '#333', fontSize: 16, marginBottom: 6 }}>{card.label}</div>
+            <div style={{ fontWeight: 700, fontSize: 32, color: '#222' }}>{stats[card.key]}</div>
+          </div>
+        ))}
       </div>
 
       <h2 className="section-title">Quick Actions</h2>

@@ -1,4 +1,6 @@
 import React from 'react';
+import DashboardLayout from '../../components/DashboardLayout';
+import { FaFileAlt } from 'react-icons/fa';
 import { applications } from '../../data/dummyData';
 
 const Applications = () => {
@@ -6,18 +8,34 @@ const Applications = () => {
   const userApplications = applications.filter(app => app.studentId === user.id);
 
   return (
-    <div>
-      <h1>My Applications</h1>
-      <div className="applications-list">
-        {userApplications.map(app => (
-          <div key={app.id} className="application-card">
-            <h3>Application #{app.id}</h3>
-            <p>Status: {app.status}</p>
-            <p>Applied Date: {app.appliedDate}</p>
-          </div>
-        ))}
+    <DashboardLayout title="My Applications">
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24 }}>
+        <FaFileAlt size={28} style={{ marginRight: 12, color: '#4F8A8B' }} />
+        <h2 style={{ margin: 0 }}>My Applications</h2>
       </div>
-    </div>
+      {userApplications.length === 0 ? (
+        <div className="empty-state">No applications found.</div>
+      ) : (
+        <table className="modern-table">
+          <thead>
+            <tr>
+              <th>#</th>
+              <th>Status</th>
+              <th>Applied Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userApplications.map((app, idx) => (
+              <tr key={app.id}>
+                <td>{idx + 1}</td>
+                <td>{app.status}</td>
+                <td>{app.appliedDate}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </DashboardLayout>
   );
 };
 

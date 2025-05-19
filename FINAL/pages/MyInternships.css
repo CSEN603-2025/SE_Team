@@ -125,6 +125,43 @@ tr:hover {
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
+/* Modern Card for Filters */
+.modern-card {
+  box-shadow: 0 4px 16px rgba(0,0,0,0.08);
+  border-radius: 14px;
+  background: #f8f9fa;
+  padding: 2rem 1.5rem 1.5rem 1.5rem;
+  margin-bottom: 2.5rem;
+  border: 1px solid #e0e0e0;
+}
+
+.modern-card label {
+  font-weight: 600;
+  color: #2c3e50;
+  margin-bottom: 0.5rem;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.modern-card input,
+.modern-card select {
+  margin-top: 0.25rem;
+  margin-bottom: 0.5rem;
+}
+
+.modern-card .btn.small {
+  border-radius: 6px;
+  font-weight: 500;
+  box-shadow: 0 1px 4px #0001;
+  transition: background 0.2s, color 0.2s;
+}
+
+.modern-card .btn.small:hover {
+  filter: brightness(0.97);
+  opacity: 0.95;
+}
+
 /* Responsive Adjustments */
 @media (max-width: 768px) {
   .page-container {
@@ -152,5 +189,9 @@ tr:hover {
     display: block;
     text-align: center;
     margin: 0.5rem 0;
+  }
+
+  .modern-card {
+    padding: 1rem;
   }
 }

@@ -1,4 +1,6 @@
 import React from 'react';
+import DashboardLayout from '../../components/DashboardLayout';
+import { FaFileAlt } from 'react-icons/fa';
 import { reports } from '../../data/dummyData';
 
 const Report = () => {
@@ -6,29 +8,34 @@ const Report = () => {
   const userReports = reports.filter(report => report.studentId === user.id);
 
   return (
-    <div className="win98-container">
-      <div className="title-bar">
-        <div className="title-bar-text">My Reports</div>
+    <DashboardLayout title="My Reports">
+      <div style={{ display: 'flex', alignItems: 'center', marginBottom: 24 }}>
+        <FaFileAlt size={28} style={{ marginRight: 12, color: '#4F8A8B' }} />
+        <h2 style={{ margin: 0 }}>My Reports</h2>
       </div>
-      
-      <div className="window-body">
-        <div className="reports-list">
-          {userReports.length > 0 ? (
-            userReports.map(report => (
-              <div key={report.id} className="report-card">
-                <h3>{report.title}</h3>
-                <p><strong>Submission Date:</strong> {report.submissionDate}</p>
-                <div className="report-content">
-                  <p>{report.content}</p>
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>No reports submitted yet.</p>
-          )}
-        </div>
-      </div>
-    </div>
+      {userReports.length === 0 ? (
+        <div className="empty-state">No reports submitted yet.</div>
+      ) : (
+        <table className="modern-table">
+          <thead>
+            <tr>
+              <th>Title</th>
+              <th>Submission Date</th>
+              <th>Content</th>
+            </tr>
+          </thead>
+          <tbody>
+            {userReports.map(report => (
+              <tr key={report.id}>
+                <td>{report.title}</td>
+                <td>{report.submissionDate}</td>
+                <td>{report.content}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      )}
+    </DashboardLayout>
   );
 };
 
